@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [public]
+    branches: [main]
 
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
       - name: Get Files
         uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
