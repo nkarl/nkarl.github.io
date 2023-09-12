@@ -28,9 +28,8 @@ function ProfilePage() {
       </div>
 
       {/* Footer */}
-      <div className="footer">
-        Resize the browser window to see how the content respond to the
-        resizing.
+      <div className="footer min-h-[15vh] grid place-items-center">
+        © 2023 Charles L. Nguyen. All Rights Reserved.
       </div>
     </>
   )
