@@ -8,39 +8,40 @@ function ProfilePage() {
   return (
     <>
       {/* header */}
-      <div className="header min-w-[100%] grid place-items-center">
-        <div className="grid-cols-2 border-2 rounded-md text-xl">
-          <label
-            className="border-gray-100 px-4"
-            style={{ "border-radius": "4px 0 0 4px" }}
-          >
-            Search
-          </label>
-          <input
-            className="border-gray-100"
-            style={{ "border-radius": "0 4px 4px 0" }}
-          ></input>
+      <div className="min-h-screen flex flex-col">
+        <div className="header min-w-[100%] grid place-items-center self-start bg-gray-700">
+          <div className="grid-cols-2 border-2 rounded-md text-xl hover:scale-110 transform duration-200 ease-out shadow-lg">
+            <label
+              className="border-gray-100 px-4"
+              style={{ borderRadius: "4px 0 0 4px" }}
+            >
+              Search
+            </label>
+            <input
+              className="border-gray-100"
+              style={{ borderRadius: "0 4px 4px 0" }}
+            ></input>
+          </div>
         </div>
-      </div>
 
-      {/* Body */}
-      <div className="min-w-full bg-gray-400">
-        {/* TODO: set transform for different screen sizes */}
-        <div className="text-black w-screen bg-gray-300 p-2 grid grid-cols-12 gap-4">
-          <div className="min-h-screen bg-gray-200 col-start-3 col-end-11 grid grid-cols-12 grid-rows-6 gap-2 grid-flow-col auto-cols-max">
-            <div className="bg-gray-100 col-start-2 col-span-3 row-start-1 row-span-2 hover:scale-110 transform ease-in-out duration-200">
-              Photo
+        {/* Body */}
+        <div className="body bg-slate-400 grid place-items-stretch py-2 p-4">
+          <div className="min-h-[75vh] bg-slate-300 rounded-sm flex flex-col items-center content-center shadow-lg">
+            <div className="bg-[#ffb703] m-8 w-[48rem] h-[8rem] p-10 rounded-md text-black text-center text-4xl shadow-lg font-semibold mt-36 hover:scale-105 transform duration-300 ease-in-out hover:shadow-2xl hover:border-2 hover:border-slate-200">
+              ⛔ Site Under Construction. ⛔
             </div>
-            <div className="bg-gray-100 col-start-5 col-span-7 row-start-2 row-span-full hover:scale-[102%] transform ease-in-out duration-200">
-              Body
+            <div className="bg-slate-200 m-4 w-[32rem] h-[6rem] p-8 rounded-md text-black text-center text-xl shadow-lg hover:scale-105 transform duration-300 ease-in-out hover:shadow-xl hover:border-2 hover:border-slate-200">
+              Please come back another time.
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="footer min-h-[15vh] grid place-items-center">
-        © 2023 Charles L. Nguyen. All Rights Reserved.
+        {/* Footer */}
+        <div className="footer min-w-full min-h-[15vh] grid place-items-center self-end bg-gray-800">
+          <p className="hover:scale-110 transform duration-200 ease-in-out">
+            © 2023 Charles L. Nguyen. All Rights Reserved.
+          </p>
+        </div>
       </div>
     </>
   );
