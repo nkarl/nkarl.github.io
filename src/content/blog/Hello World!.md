@@ -1,7 +1,8 @@
 ---
-title: 'Fourth post -- Hello World'
+title: 'Hello World!'
 description: 'Trying out the MDX blog with Astro.'
-pubDate: April 14 2024'
+pubDate: 'April 14 2024'
+updatedDate: 'April 16 2024'
 ---
 
 This blog post contains some PureScript code.

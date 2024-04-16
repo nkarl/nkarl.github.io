@@ -1,0 +1,11 @@
+---
+title: 'Put on a New Set of Strings for My Guitar'
+description: 'Quick Post'
+pubDate: 'April 15 2024'
+---
+
+The 4th string snapped a while back, but I got too busy (and lazy) to replace it. I had not been playing for half a year so when I did a quick improvisation, the string vibration squeezed my heart a little bit. It was a nice feeling.
+
+I decided to practice the song “Mùa Thu Cho Em” seriously this time.
+
+I am alternating between the guitar and the keyboard for practicing. Switching instrument seems to make the song more complete to me.
