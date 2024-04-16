@@ -16,21 +16,21 @@
 		0 16px 32px rgba(var(--gray), 33%);
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
+	font-family: 'Palatino Lino Type' /*'Atkinson'*/;
+	src: url('/fonts/palatinolinotype_roman.ttf') format('ttf') /* url('/fonts/atkinson-regular.woff') format('woff')*/;
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
+	font-family: 'Palatino Lino Type'/*'Atkinson'*/;
+	src: url('/fonts/palatinolinotype_bold.ttf') format('ttf') /*/fonts/atkinson-bold.woff') format('woff')*/;
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: 'Palatino Lino Type' /* , sans-serif */;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -40,7 +40,7 @@ body {
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
 	font-size: 20px;
-	line-height: 1.2;
+	line-height: 1.75;
 }
 main {
 	width: 720px;
@@ -115,7 +115,7 @@ pre {
 }
 pre > code {
 	all: unset;
-	font-size: 14px;
+	font-size: 16px;
 }
 blockquote {
 	border-left: 4px solid var(--accent);
