@@ -6,15 +6,15 @@ pubDate: 'April 14 2024'
 
 I have wanted to start a blog for a while, but kept delaying for many reasons.
 
-One is that I have been writing in private for years using Markdown with custom HTML and CSS embedded in. I am so used to this style that it feels really restricted using anything else. I needed a blog template that is easy to spin up and deploy via GitHub Actions. I was looking at Svelte but it seemed a bloated at a glance, which is quite a funny thing to say because Svelte is supposed to address the bloat problem of React. Anyways I eventually found Astro.
+One is that I have been writing in private for years using Markdown with custom embedded HTML and CSS. I am so used to this style that it feels really restricted using anything else. I need a blog template which supports those features and is easy to spin up and deploy with GitHub Actions. I was looking at Svelte but it seemed a bloated at a glance, which is quite a funny thing to say because Svelte *does* address the bloatness of React.
 
-Now, there is nothing wrong with Svelte. It is a great framework, actually. It is just that my use case is very narrow: a blog with static content. Svelte excels at building full-fledge web applications. It is overkill for my purpose. Astro on the other hand is a *static site generator*, which is perfect for me.
+Now, there is nothing wrong with Svelte. It is a great framework actually. Svelte excels at building full-fledge web applications, but it is overkill for my purpose. My use case is very narrow: a simple blog. One day I stumbled upon Astro. It is a static site generator, which is the perfect tool for the job.
 
-Anyways, now that I have a blog again, I will publish consistently.
+Now that I have a blog again, I will publish consistently.
 
 Looking forward to all ahead!
 
-Finally, as a token of celebration, here is a `Hello World!` in PureScript. 😀
+As token of celebration, here is a `Hello World!` in PureScript. 😀
 
 ```haskell
 import Prelude
