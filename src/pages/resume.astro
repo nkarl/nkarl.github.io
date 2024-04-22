@@ -3,8 +3,8 @@ import Layout from "../layouts/BlogPost.astro";
 ---
 
 <Layout title="Charles Lambert Nguyen" pubDate={new Date("April 21 2024")}>
-  <div name="header">
-    <ul class="title">
+  <div id="fullname-contact-info">
+    <ul id="contact-info">
       <li>
         <a href="mailto:charles.lambert.nguyen@gmail.com"
           >charles.lambert.nguyen@gmail.com</a
@@ -17,7 +17,7 @@ import Layout from "../layouts/BlogPost.astro";
     </ul>
   </div>
 
-  <div name="summary">
+  <div id="summary">
     <h3>Summary</h3>
     <ul>
       <p>
@@ -33,12 +33,12 @@ import Layout from "../layouts/BlogPost.astro";
     </ul>
   </div>
 
-  <div name="skills">
+  <div id="skills">
     <h3>Skills</h3>
     <ul><p>PureScript, Node.js, SQL, GCP, NuShell</p></ul>
   </div>
 
-  <div name="education">
+  <div id="education">
     <h3>Education</h3>
     <ul class="exp-date">
       <p>
@@ -46,110 +46,119 @@ import Layout from "../layouts/BlogPost.astro";
           <p>May 2023</p>
         </p>
       </p>
-
-      <div name="experience">
-        <h3>Professional Experience</h3>
-        <ul>
-          <li name="exp1">
-            <div class="exp-date">
-              <p>
-                <strong
-                  >Junior Software Engineer - <a href="https://techsphere.app/"
-                    >techsphere.app</a
-                  ></strong
-                >,
-                <em>Remote</em>
-              </p>
-              <p>Jun 2023 - Jan 2024</p>
-            </div>
-            <div>
-              <p>
-                I worked with the engineering team to rebuild an existing
-                website previously written in React TypeScript and deployed with
-                Google Cloud Functions. Our work was done using the TypeScript,
-                Java, NoSQL stack. We developed and deployed on GCP.
-              </p>
-              <p>
-                In the first 3 months we worked to boot up and stabilize the
-                Java backend. We separated the logic into a proper Java
-                SpringBoot backend with ORM for the Firebase database.
-                <strong><em>This let us identify and remove a bottleneck, which cut load time from 4s to below 1s.</em></strong>
-                In the final 3 months, I contributed to the next phase of the development
-                cycle with outreach interviews to collect and analyze user feedback.
-              </p>
-              <p>
-                Near the end of my tenure, I also started working on refactoring
-                the frontend, which propmted me to want to dig deeper into
-                functional programming.
-              </p>
-            </div>
-          </li>
-
-          <li name="exp2">
-            <div class="exp-date">
-              <p>
-                <strong>Research Assistant - Software Engineering Lab</strong>, <em
-                  >Pullman WA</em
-                >
-              </p>
-              <p>Mar 2022 - Oct 2022</p>
-            </div>
-            <div>
-              <p>
-                I worked in Prof. Venera Arnaoudova's lab and contributed to a
-                larger body of research into measuring the cognitive load of
-                developers during heavy programming tasks. This research hopes
-                to develop tools that might better assist developers.
-              </p>
-              <p>
-                My partner Shira Feinberg and I scheduled appointments,
-                conducted and monitored experiments, performed participant exit
-                interviews, and automated data cleanup and organization.
-              </p>
-              <p>
-                I also reviewed the source code of the companion ReactNative app
-                (developed by the previous cohort of assistants) which maps and
-                projects eye-tracker coordinates as a heat map over web content.
-                It was like looking at gibberish, which prompted me to learn
-                JavaScript and web development.
-              </p>
-            </div>
-          </li>
-
-          <li name="exp3">
-            <div class="exp-date">
-              <p>
-                <strong>Teaching Assistant - College of Education,</strong>
-                <em>Pullman WA</em>
-              </p>
-              <p>Jul 2022 - Aug 2022</p>
-            </div>
-            <p>
-              I worked with the WSU College of Education to introduce basic
-              programming concepts to students at a Lincoln Middle School,
-              Pullman WA. I worked through two week-long programming camps, one
-              virtual and one in-person. I walked the students through the basic
-              syntax and semantics of Python.
-            </p>
-            <p>
-              We accompany the theory with a small fun project: building a snake
-              game. Some kids were really into the decorations! :)
-            </p>
-          </li>
-        </ul>
-      </div>
     </ul>
+  </div>
 
-    <style>
-      div[name="header"] .title {
-        display: flex;
-        justify-content: space-around;
-      }
+  <div id="experience">
+    <h3>Professional Experience</h3>
+    <!-- experience list -->
+    <ul>
+      <!-- experience 1 -->
+      <li name="exp1">
+        <div class="exp-date">
+          <p>
+            <strong
+              >Junior Software Engineer - <a href="https://techsphere.app/"
+                >techsphere.app</a
+              ></strong
+            >,
+            <em>Remote</em>
+          </p>
+          <p>Jun 2023 - Jan 2024</p>
+        </div>
+        <div>
+          <p>
+            I worked with the engineering team to rebuild an existing website
+            previously written in React TypeScript and deployed with Google
+            Cloud Functions. Our work was done using the TypeScript, Java, NoSQL
+            stack. We developed and deployed on GCP.
+          </p>
+          <p>
+            In the first 3 months we worked to boot up and stabilize the Java
+            backend. We separated the logic into a proper Java SpringBoot
+            backend with ORM for the Firebase database.
+            <strong
+              ><em
+                >This let us identify and remove a bottleneck, which cut load
+                time from 4s to below 1s.</em
+              ></strong
+            >
+            In the final 3 months, I contributed to the next phase of the development
+            cycle with outreach interviews to collect and analyze user feedback.
+          </p>
+          <p>
+            Near the end of my tenure, I also started working on refactoring the
+            frontend, which propmted me to want to dig deeper into functional
+            programming.
+          </p>
+        </div>
+      </li>
 
-      .exp-date {
-        display: flex;
-        justify-content: space-between;
-      }
-    </style>
-  </div></Layout
->
+      <!-- experience 2 -->
+      <li name="exp2">
+        <div class="exp-date">
+          <p>
+            <strong>Research Assistant - Software Engineering Lab</strong>, <em
+              >Pullman WA</em
+            >
+          </p>
+          <p>Mar 2022 - Oct 2022</p>
+        </div>
+        <div>
+          <p>
+            I worked in Prof. Venera Arnaoudova's lab and contributed to a
+            larger body of research into measuring the cognitive load of
+            developers during heavy programming tasks. This research hopes to
+            develop tools that might better assist developers.
+          </p>
+          <p>
+            My partner Shira Feinberg and I scheduled appointments, conducted
+            and monitored experiments, performed participant exit interviews,
+            and automated data cleanup and organization.
+          </p>
+          <p>
+            I also reviewed the source code of the companion ReactNative app
+            (developed by the previous cohort of assistants) which maps and
+            projects eye-tracker coordinates as a heat map over web content. It
+            was like looking at gibberish, which prompted me to learn JavaScript
+            and web development.
+          </p>
+        </div>
+      </li>
+
+      <!-- experience 3 -->
+      <li name="exp3">
+        <div class="exp-date">
+          <p>
+            <strong>Teaching Assistant - College of Education,</strong>
+            <em>Pullman WA</em>
+          </p>
+          <p>Jul 2022 - Aug 2022</p>
+        </div>
+        <p>
+          I worked with the WSU College of Education to introduce basic
+          programming concepts to students at a Lincoln Middle School, Pullman
+          WA. I worked through two week-long programming camps, one virtual and
+          one in-person. I walked the students through the basic syntax and
+          semantics of Python.
+        </p>
+        <p>
+          We accompany the theory with a small fun project: building a snake
+          game. Some kids were really into the decorations! :)
+        </p>
+      </li>
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  div[id="fullname-contact-info"] #contact-info {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .exp-date {
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
