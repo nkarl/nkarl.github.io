@@ -72,7 +72,7 @@ nix-shell -p nodejs
 v18.18.2 # output
 ```
 
-The [official Nix doc](https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments) provides a ridiculous example via two packages `cowsay` and `lolcat`. If you are a complete newbie or some who has little experience with the Linux command line, you would run it and be like "OK, what the heck does that mean?"
+The [official Nix doc](https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments) provides a ridiculous example via two packages `cowsay` and `lolcat`. If you have little experience with the Linux command line, you would run it and be like "OK, what the heck does that mean?"
 
 I will break that down for you.
 
