@@ -90,7 +90,7 @@ const posts = (await getCollection('blog')).sort(
 		<main>
 			<section>
 				<ul>
-					{ posts.data && posts.map((post) => (
+					{ posts && posts.map(post => (
 							<li>
 								<a href={`/blog/${post.slug}/`}>
 									<!--
@@ -104,7 +104,7 @@ const posts = (await getCollection('blog')).sort(
 							</li>
 						))
 					}
-					{ !posts.data && (
+					{ !posts && (
 							<li>
 								<h3
 									style='color:gray'>
