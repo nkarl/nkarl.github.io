@@ -20,7 +20,7 @@ For every reproducible system, there should be at least one and up to a few core
 </p>
 </blockquote>
 
-Nix relies on these files to build or rebuild the system. Now, this is where Nix shines: every build/rebuild generate a new snapshot. In other words, building/rebuilding a Nix system is always **generative**. This is why Nix users can experiment and customize their systems without fear. If something unexpectedly breaks, you can simply take out the breaking dependency and rebuild to an earlier version. Or even simpler, you can revert to an earlier snapshot (that *has not been garbage collected*).
+Nix relies on these files to build or rebuild the system. Now, this is where Nix shines: every build/rebuild generates a new snapshot. In other words, building/rebuilding a Nix system is always **generative**. This is why Nix users can experiment and customize their systems without fear. If something unexpectedly breaks, you can simply take out the breaking dependency and rebuild to an earlier version. Or even simpler, you can revert to an earlier snapshot (that *has not been garbage collected*).
 
 <blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
 <p>
@@ -44,7 +44,7 @@ The first option is the starting place for pretty much everyone. Once we have go
 
 ## Starting a Nix Shell Instance
 
-For this foray into Nix, I will use the Nix Docker image. The goal is to maximize understanding, which means that configurations will be highly volatile. Thus, it is imperative that they are isolated from my main system.
+For this foray into Nix, I will use the [Nix Docker image](https://nixos.org/download/#nix-install-docker). The goal is to maximize understanding, which means that configurations will be highly volatile. Thus, it is imperative that we minimize the contact area with our main system.
 
 ```sh
 docker run -it nixos/nix
@@ -72,7 +72,7 @@ nix-shell -p nodejs
 v18.18.2 # output
 ```
 
-The [official Nix doc](https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments) provides a ridiculous example via the two packages `cowsay` and `lolcat`. If you are a complete newbie, you would run it and be like "OK, what the heck does that mean?"
+The [official Nix doc](https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments) provides a ridiculous example via two packages `cowsay` and `lolcat`. If you are a complete newbie or some who has little experience with the Linux command line, you would run it and be like "OK, what the heck does that mean?"
 
 I will break that down for you.
 
@@ -86,6 +86,6 @@ Every Nix shell instance is isolated from the Docker root environment. The two p
 
 There, we just created our first Nix shell instances. 
 
-Ultimately, we want to have a configuration we use independently of platforms. That is by definition *reproducible*. That requires a few core config files.
+Ultimately, we want to have a configuration for use independently of platforms. That is by definition *reproducible*. That requires a few core config files.
 
 In the next post we will create a default config file with a few standard dependencies.
