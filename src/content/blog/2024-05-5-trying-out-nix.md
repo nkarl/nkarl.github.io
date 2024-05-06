@@ -81,8 +81,7 @@ I will break that down for you.
 2. Next, `cowsay` and `lolcat` are themselves two small programs.
 	- `cowsay` takes some text and draws a silly looking horse with a speech bubble above it.
 	- `lolcat` means `cat` with funsies. It is a command that runs the text through a color filter, and then concatenates to the standard output (the terminal interface).
-
-Every Nix shell instance is isolated from the Docker root environment. The two programs can only be run inside this particular Nix shell instance that has them as dependencies.
+3. The two programs can only be run from this particular instance that has them as dependencies.
 
 There, we just created our first Nix shell instances. 
 
