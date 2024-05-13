@@ -6,7 +6,7 @@ pubDate: 'May 13 2024'
 
 I went to Boise for the weekend to attend my friend Jarren's wedding. We had a blast!
 
-I had to wait for a flight back to Orange County, but there was no grass at the Boise airport, so I wrote something about touching grass in Haskell instead.
+I had to wait for the flight back to Orange County, and there was no grass to touch at the Boise airport. Instead, I wrote something about touching grass in Haskell.
 
 <blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
 <p>
@@ -56,3 +56,5 @@ test = do
   print $ Result{it_is = thing4, touched = touch thing4}
   print $ Result{it_is = thing5, touched = touch thing5}
 ```
+
+I also want to make a note about the Smash Burger at the airport. I had a double bacon burger and it was amazing. It was fresh and juicy and just right amount of saltiness. I will remember the taste for a long time.
