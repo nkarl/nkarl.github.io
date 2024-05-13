@@ -31,6 +31,7 @@ data Something = Something { which_is :: Which, where_is :: Where } deriving (Sh
 
 class Touchable where
   touch :: Maybe Something -> Maybe Touch
+
 instance Touchable where
   touch something = do
     Something{which_is, where_is} <- something
