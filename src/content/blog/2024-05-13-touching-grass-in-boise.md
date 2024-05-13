@@ -6,7 +6,7 @@ pubDate: 'May 13 2024'
 
 I went to Boise for the weekend to attend my friend Jarren's wedding. We had a blast!
 
-I was waiting for a flight at the Boise Airport, but there was no grass at the airport, so I wrote something about touching grass in Haskell instead.
+I had to wait for a flight back to Orange County, but there was no grass at the Boise airport, so I wrote something about touching grass in Haskell instead.
 
 <blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
 <p>
