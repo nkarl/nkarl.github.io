@@ -4,7 +4,7 @@ description: 'In this blog, I touched some grass in Haskell.'
 pubDate: 'May 13 2024'
 ---
 
-I went to Boise for the weekend to attend my friend Jarren's wedding. We had a blast!
+I went to Boise for the weekend to attend my friend Jarren's wedding. It was my first time at an American wedding, so I felt some awkwardness at first. That soon went away; Claire's mother and the families were very warm and welcoming. We had a blast!
 
 I also want to make a note about the Smash Burger at the airport. I had a double bacon burger and it was amazing. It was fresh and juicy and just right amount of saltiness. I will remember the taste for a long time.
 
