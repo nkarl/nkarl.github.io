@@ -6,7 +6,7 @@ pubDate: 'May 13 2024'
 
 I went to Boise for the weekend to attend my friend Jarren's wedding. It was my first time at an American wedding, so I felt some awkwardness at first. That soon went away; Claire's mother and the families were very warm and welcoming. We had a blast!
 
-I also want to make a note about the Smash Burger at the airport. I had a double bacon burger and it was amazing. It was fresh and juicy and just right amount of saltiness. I will remember the taste for a long time.
+I stayed for Friday and Saturday. I left for the Boise airport on Sunday monring. I also want to make a note about the Smash Burger at the airport. I had a double bacon burger and it was amazing. It was fresh and juicy and just right amount of saltiness. I will remember the taste for a long time.
 
 Other than that, I had to wait a bit for the flight back to Orange County. Sadly, there was no grass to touch at the Boise airport. Since I have been learning functional programming for the past year, I decided to write about touching grass in Haskell instead.
 
