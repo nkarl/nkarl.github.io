@@ -1,5 +1,5 @@
 ---
-title: 'Touching Grass at Boise, ID'
+title: 'Touching Grass in Boise, ID'
 description: 'In this blog, I touched some grass in Haskell.'
 pubDate: 'May 13 2024'
 ---
