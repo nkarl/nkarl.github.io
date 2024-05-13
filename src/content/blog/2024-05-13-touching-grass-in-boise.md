@@ -4,7 +4,7 @@ description: 'In this blog, I touched some grass in Haskell.'
 pubDate: 'May 13 2024'
 ---
 
-I was in Boise for the weekend to attend my friend Jarren's wedding. We had a blast!
+I went to Boise for the weekend to attend my friend Jarren's wedding. We had a blast!
 
 I was waiting for a flight at the Boise Airport, but there was no grass at the airport, so I wrote something about touching grass in Haskell instead.
 
