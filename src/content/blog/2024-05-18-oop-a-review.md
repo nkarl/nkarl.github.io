@@ -4,9 +4,9 @@ description: 'I reviewed OOP.'
 pubDate: 'May 18 2024'
 ---
 
-Let's review Object-Oriented Programming.
+Let's review Object-Oriented Programming (OOP).
 
-There are 4 fundamental attributes to the OOP paradigm:
+There are 4 attributes fundamental to the OOP paradigm:
 
 - encapsulation
 - (data) abstraction
@@ -23,7 +23,7 @@ It is important to remember that these 4 attributes are closely connected.
 	- Let's say we observe a new class of phenomena. We notice that it has _at the very least_ some attributes we already found. On top of that, they have additional attributes unique to themselves.
 - __Polymorphism__ is the idea that: once we have a generalized base type, we then can [morph](https://en.wikipedia.org/wiki/Animorphs) the base type into a bunch of similar types, each have their own variant actions.
 
-Here I want to make a bold claim that object-oriented programming is actually very closely related to functional programming for the same 4 reasons above. I will demonstrate with an example. I also will use 'object-class' and 'type' synonymously.
+Here I want to make a bold claim that object-oriented programming is actually very closely related to Functional Programming (FP) for the same 4 reasons above. I will demonstrate with an example. I also will use 'object-class' and 'type' synonymously.
 
 ### A Simple Example
 
@@ -142,7 +142,7 @@ In the functional approach, actions matter insofar as they produce some results 
 
 On the other hand, there is an overemphasis on the object-class in OOP. The point of reference is on the structure of the objects themselves, not the actions. Because of this we had to come up with many language specifics over the years such as static methods, default interface methods, overriding methods and so on. This in my opinion is not ideal, especially when coupled with highly verbose languages.
 
-### The Problem that OOP addressed
+### The Problem that OOP Addressed
 
 This is not to say that OOP is all bad. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problems it solved had to be equally impressive.
 
