@@ -62,13 +62,13 @@ Let's take a detour and see how we might implement this in Haskell. Note that th
 
 For the sake of simplicity, we do not concern ourselves with strict definitions and semantics here.
 
-An _Elysia Chronotica_ is a type of animal that exhibits these actions:
+An _Elysia Chronotica_ (__encapsulation__) is a type of animal (__inheritance__) that exhibits these actions (__polymorphism__):
 
 - it `lives`, which demonstrates by its ability to `breath`.
 - it `moves`, which is an action common to most animals.
 - it `photosynthesizes`, which is an action common to most plants.
 
-Every action has an input and output. For the sake of simplicity we will compress the order of complexity into a single ouput for each function, abstracting away the input and everything else in between:
+Every action has an input and output. For the sake of simplicity we will compress the order of complexity into a single ouput for each function, abstracting away the input and everything else in between (__generalization__):
 
 - `breath` produces `CO_2` as output.
 - `photosynth` produces `O_2` as output.
@@ -136,17 +136,17 @@ class Elysia implements ILivable, IMovable, IPhotosynthesizable {
 }
 ```
 
-This example has demonstrated that there are universal similarities between the two languages (and thus paradigms). This is despite the idiosyncrasies in syntax and semantics. Although, having become more familiar with Haskell, I increasingly find more comfort in the functional approach for reasoning and modeling for the sake of correctness. I will explain why.
+This example has demonstrated that there are universal similarities between the two languages (and thus paradigms). This is despite the idiosyncrasies in syntax and semantics. Although, having become more familiar with Haskell, I increasingly find more comfort in the functional approach in order to reason and model for the sake of correctness. I will explain why.
 
 In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply records instantiated for the sake of getting the results.
 
-On the other hand, there is an overemphasis on the object-class in OOP. The point of reference is on the objects themselves, not the actions. Because of this we had to come up with many language specifics such as static methods, default interface methods, overriding methods and so on.
+On the other hand, there is an overemphasis on the object-class in OOP. The point of reference is on the structure of the objects themselves, not the actions. Because of this we had to come up with many language specifics over the years such as static methods, default interface methods, overriding methods and so on. This in my opinion is not ideal, especially when coupled with highly verbose languages.
 
 ### The Problem that OOP addressed
 
-This is not to say that OOP is all bad. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problem it solved had to be equally impressive.
+This is not to say that OOP is all bad. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problems it solved had to be equally impressive.
 
-OOP solved a very specific problem: the problem of lexical contexts.
+I believe OOP solved a very specific problem: the problem of lexical contexts.
 
 It used to be the case that *all* variables are shoved into a global namspace, which leads to mutations (and bugs) that are impossible to track as applications scale up. Given all the `extern` declarations in C and C++, things spiral out of control fast. It is hellish to debug and develop for large and enterprise-classed applications in this manner.
 
@@ -156,9 +156,9 @@ There has to be away to "tag" variables according to their scope of use. In fact
 
 In fact, in my opinion it is more accurate to categorize the landscape of programming as a gradient around two poles: _functional programming_ and _masonic programming_.
 
-The first aims for maximal correctness in mapping between theory and implementation, while the second aims for maximal implementation velocity due having to deal very closely with bare metals. The first aim is required at some point when we need to scale applications. The second approach demands some freedom from mathematical constraints because we live day-to-day in a Newtonian world not a quantum-field world. And also because,
+The first aims for maximal correctness in mapping between theory and implementation, while the second aims for maximal implementation velocity due to having to deal very closely with bare metals. The first aim is required at some point when the need for scaling emerges. The second approach demands some freedom from certain constraints because we live day-to-day in a Newtonian world not a quantum-field world. And also because,
 
-<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>&mdash; Matthieu Pageau (@PageauMatthieu) <a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'><p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>&mdash; Matthieu Pageau (@PageauMatthieu) <a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a></blockquote>
 
 The kind of programmers who opt for speed and performance do not want to be constrained. And they should not be.
 
