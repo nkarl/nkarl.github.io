@@ -155,7 +155,7 @@ At some point, it seems to me that the focus on the data was lost, and the struc
 
 ### The Problem that OOP Addressed
 
-This is not to say that OOP is all bad. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problems it solved had to be equally impressive.
+This is not to say that OOP is bad. It is important to know the limitations of our tools. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problems it solved had to be equally impressive.
 
 I believe OOP solved a very specific problem: the problem of lexical contexts.
 
