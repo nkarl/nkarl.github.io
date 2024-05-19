@@ -136,7 +136,7 @@ class Elysia implements ILivable, IMovable, IPhotosynthesizable {
 }
 ```
 
-This example has demonstrated that there are universal similarities between the two languages (and thus paradigms). This is despite the idiosyncrasies in syntax and semantics. Although, having become more familiar with Haskell, I increasingly find more comfort in the functional approach in order to reason and model for the sake of correctness. I will explain why.
+This example has demonstrated that there are universal similarities between the two languages (and thus paradigms). This is despite the idiosyncrasies in syntax and semantics. Although, having become more familiar with Haskell, I increasingly find more comfort in the functional approach in terms of reasoning and modeling for the sake of correctness. I will explain why.
 
 In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply records instantiated for the sake of getting the results.
 
