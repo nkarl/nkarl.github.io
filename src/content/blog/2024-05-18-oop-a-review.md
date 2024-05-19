@@ -1,0 +1,166 @@
+---
+title: 'Object-Oriented Programming – a Review'
+description: 'I reviewed OOP.'
+pubDate: 'May 18 2024'
+---
+
+Let's review Object-Oriented Programming.
+
+There are 4 fundamental attributes to the OOP paradigm:
+
+- encapsulation
+- (data) abstraction
+- inheritance
+- polymorphism
+
+It is important to remember that these 4 attributes are closely connected.
+
+- __Encapsulation__ is the act of capturing some information and compressing it under a symbol.
+	- [A name is a kind of symbol](https://docs.github.com/en/repositories/working-with-files/using-files/navigating-code-on-github#using-the-symbols-pane); it is a placeholder for something larger underneath.
+- __Abstraction__ is the act of generalizing. In fact, I prefer the word _generalization_.
+	- Generalization is an _inductive process_. We observe a range of phenomena and notice that some actions or events happen over and over again. We record these actions and events, and expect them to happen for a certain class of phenomena. We identify and label them as a set of common attributes for these phenomena.
+- __Inheritance__ is the act of reusing some generalized attributes.
+	- Let's say we observe a new class of phenomena. We notice that it has _at the very least_ some attributes we already found. On top of that, they have additional attributes unique to themselves.
+- __Polymorphism__ is the idea that: once we have a generalized base type, we then can [morph](https://en.wikipedia.org/wiki/Animorphs) the base type into a bunch of similar types, each have their own variant actions.
+
+Here I want to make a bold claim that object-oriented programming is actually very closely related to functional programming for the same 4 reasons above. I will demonstrate with an example. I also will use 'object-class' and 'type' synonymously.
+
+### A Simple Example
+
+We want to define a simple taxonomy.
+
+- An animal is an organism.
+- A plant is also an organism.
+- Both types are organic life, because they both have 'breathing' as a fundamental attribute. 
+
+```java
+class Organism {
+	Element element = Element.Carbon; // enum predefined elsewhere
+	void breath() { }
+}
+class Animal extends Organism {
+	bool canMove = true; 
+}
+class Plant extends Organism {
+	bool canPhotosynthsize = true;
+}
+```
+
+However, because of [the diamond problem](https://en.wikipedia.org/wiki/Multiple_inheritance), the [Elysia Chronotica](https://en.wikipedia.org/wiki/Elysia_chlorotica?useskin=vector) is explicitly forbid by classical Java from being defined. We cannot do the following:
+
+```java
+class Elysia extends Animal, Plant {}
+```
+
+This raises a problem: at some point we need to differentiate between state and action attributes. Enters _interface_ as a new way to organize action-based attributes. _Interface_ allows a type to be extended with many sets of action-based attributes.
+
+Originally Java did not have _interface_. It was only capable of having object-class definitions.
+
+### Modeling
+
+Let's take a detour and see how we might implement this in Haskell. Note that the keyword `class` denotes _typeclass_ in Haskell. _Typeclass_ should be more accurately read as "given some data <u>type</u> to be modeled, we expect it to exhibit these <u>classes</u> of actions".
+
+For the sake of simplicity, we do not concern ourselves with strict definitions and semantics here.
+
+An _Elysia Chronotica_ is a type of animal that exhibits these actions:
+
+- it `lives`, which demonstrates by its ability to `breath`.
+- it `moves`, which is an action common to most animals.
+- it `photosynthesizes`, which is an action common to most plants.
+
+Every action has an input and output. For the sake of simplicity we will compress the order of complexity into a single ouput for each function, abstracting away the input and everything else in between:
+
+- `breath` produces `CO_2` as output.
+- `photosynth` produces `O_2` as output.
+- `move` is a little bit more complicated. Movements involve pathing, with a pair of start- and end-points. This pair contains more information and thus more useful to us. Thus, we will let it produce a coordinate tuple `(from, to)`.
+
+```haskell
+data Where  = Here | There deriving (Show)
+data Output = CO_2 | O_2   deriving (Show)
+
+-- defines the actions pertaining to being alive
+class Livable where
+    breath :: Output
+instance Livable where           -- implementation
+	breath = CO_2
+
+-- defines the actions pertaining to capable of moving
+class Movable where
+	move :: Where -> Where -> (Where, Where)
+instance Movable where           -- implementation
+	move from to = (from, to)
+
+-- defines the actions pertaining to being plant-like
+class Photosynthesizable where
+	photosynth :: Output
+instance Photosynthesizable where -- implementation
+	photosynth = O_2
+
+-- constructor for the type Elysia, of which every elysia is an instance
+data Elysia
+	= Elysia
+	{ it_breathes     :: Output
+	, it_moves        :: (Where, Where)
+	, it_photosynthes :: Output
+	, it_is_named     :: String
+	} deriving (Show)
+```
+
+Now the same implementation in Java:
+
+```java
+enum Where  { Here, There }
+enum Output { CO_2, O_2 }
+
+// defines the actions pertaining to being alive
+interface ILivable {
+	default Output breath() {
+		return Output.CO_2;
+	}
+}
+// defines the actions pertaining to capable of moving
+interface IMovable {
+	default Tuple<Where, Where> move(Where from, Where to) {
+		return Tuple(from, to);
+	}
+}
+// defines the actions pertaining to being plant-like
+interface IPhotosynthesizable {
+	default Output photosynthesize() {
+		return Output.O_2;
+	}
+}
+class Elysia implements ILivable, IMovable, IPhotosynthesizable {
+	// other init such as constructor(s) omitted
+	String name() { get; }
+}
+```
+
+This example has demonstrated that there are universal similarities between the two languages (and thus paradigms). This is despite the idiosyncrasies in syntax and semantics. Although, having become more familiar with Haskell, I increasingly find more comfort in the functional approach for reasoning and modeling for the sake of correctness. I will explain why.
+
+In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply records instantiated for the sake of getting the results.
+
+On the other hand, there is an overemphasis on the object-class in OOP. The point of reference is on the objects themselves, not the actions. Because of this we had to come up with many language specifics such as static methods, default interface methods, overriding methods and so on.
+
+### The Problem that OOP addressed
+
+This is not to say that OOP is all bad. Every language has arrived on the scene to address a very specific set of problems at its time. In fact, Java was so successful that it dominated the entire field for the next 20 years. That means that the problem it solved had to be equally impressive.
+
+OOP solved a very specific problem: the problem of lexical contexts.
+
+It used to be the case that *all* variables are shoved into a global namspace, which leads to mutations (and bugs) that are impossible to track as applications scale up. Given all the `extern` declarations in C and C++, things spiral out of control fast. It is hellish to debug and develop for large and enterprise-classed applications in this manner.
+
+There has to be away to "tag" variables according to their scope of use. In fact, it is better for development and maintenance (and developer sanity) that variables should live and die within their own lexical scopes. OOP solves this problem. Object-classes are infact a form of tagging to track lexical contexts. An OOP program always starts with a main class, which wraps all other object instances. Everything is traceable as a tree graph by following the footprint of instantiated objects.
+
+### Final Thoughts
+
+In fact, in my opinion it is more accurate to categorize the landscape of programming as a gradient around two poles: _functional programming_ and _masonic programming_.
+
+The first aims for maximal correctness in mapping between theory and implementation, while the second aims for maximal implementation velocity due having to deal very closely with bare metals. The first aim is required at some point when we need to scale applications. The second approach demands some freedom from mathematical constraints because we live day-to-day in a Newtonian world not a quantum-field world. And also because,
+
+<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true"><p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>&mdash; Matthieu Pageau (@PageauMatthieu) <a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+The kind of programmers who opt for speed and performance do not want to be constrained. And they should not be.
+
+As is everything else in life, the balance lies somewhere between the two poles.
+
