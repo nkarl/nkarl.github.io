@@ -46,7 +46,7 @@ class Plant extends Organism {
 }
 ```
 
-However, because of [the diamond problem](https://en.wikipedia.org/wiki/Multiple_inheritance), the [Elysia Chronotica](https://en.wikipedia.org/wiki/Elysia_chlorotica?useskin=vector) is explicitly forbid by classical Java from being defined. We cannot do the following:
+However, because of [the diamond problem](https://en.wikipedia.org/wiki/Multiple_inheritance), the [Elysia Chronotica](https://en.wikipedia.org/wiki/Elysia_chlorotica?useskin=vector) is explicitly forbidden by classical Java from being defined. We cannot do the following:
 
 ```java
 class Elysia extends Animal, Plant {}
