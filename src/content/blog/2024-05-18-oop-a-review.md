@@ -60,7 +60,7 @@ Originally Java did not have _interface_. It was only capable of having object-c
 
 Let's take a detour and see how we might implement this in Haskell. Note that the keyword `class` denotes _typeclass_ in Haskell. _Typeclass_ should be more accurately read as "given some data <u>type</u> to be modeled, we expect it to exhibit these <u>classes</u> of actions".
 
-For the sake of simplicity, we do not concern ourselves with strict definitions and semantics here.
+For the sake of simplicity, we do not concern ourselves with strict scientific definitions and semantics here.
 
 An _Elysia Chronotica_ (__encapsulation__) is a type of animal (__inheritance__) that exhibits these actions (__polymorphism__):
 
