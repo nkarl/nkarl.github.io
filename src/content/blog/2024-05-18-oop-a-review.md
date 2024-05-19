@@ -62,13 +62,13 @@ Let's take a detour and see how we might implement this in Haskell. Note that th
 
 For the sake of simplicity, we do not concern ourselves with strict scientific definitions and semantics here.
 
-An _Elysia Chronotica_ (__encapsulation__) is a type of animal (__inheritance__) that exhibits these actions (__polymorphism__):
+An _Elysia Chronotica_ (__encapsulation__) is a type of animal (__inheritance__) that exhibits these actions (__generalization__):
 
 - it `lives`, which demonstrates by its ability to `breath`.
 - it `moves`, which is an action common to most animals.
 - it `photosynthesizes`, which is an action common to most plants.
 
-Every action has an input and output. For the sake of simplicity we will compress the order of complexity into a single ouput for each function, abstracting away the input and everything else in between (__generalization__):
+Every action has an input and output. For the sake of simplicity we will compress the order of complexity into a single ouput for each function, abstracting away the input and everything else in between (__polymorphism__):
 
 - `breath` produces `CO_2` as output.
 - `photosynth` produces `O_2` as output.
