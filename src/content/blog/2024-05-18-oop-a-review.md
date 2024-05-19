@@ -35,14 +35,14 @@ We want to define a simple taxonomy.
 
 ```java
 class Organism {
-	Element element = Element.Carbon; // enum predefined elsewhere
-	void breath() { }
+    Element element = Element.Carbon; // enum predefined elsewhere
+    void breath() { }
 }
 class Animal extends Organism {
-	bool canMove = true; 
+    bool canMove = true; 
 }
 class Plant extends Organism {
-	bool canPhotosynthsize = true;
+    bool canPhotosynthsize = true;
 }
 ```
 
@@ -68,7 +68,7 @@ An _Elysia Chronotica_ (__encapsulation__) is a type of animal (__inheritance__)
 - it `moves`, which is an action common to most animals.
 - it `photosynthesizes`, which is an action common to most plants.
 
-Every action has an input and output. To keep it simple, we will reduce the order of complexity into a single ouput for each function, abstracting away the input and everything else in between (__monomorphism__):
+Every action has an input and output. To keep it simple, we reduce the order of complexity into a single ouput for each function, abstracting away the input and everything else in between. We also place a constraint that these actions are defined for _Elysia Chronotica_ (__monomorphism__):
 
 - `breath` produces `CO_2` as output.
 - `photosynth` produces `O_2` as output.
@@ -78,7 +78,7 @@ Every action has an input and output. To keep it simple, we will reduce the orde
 <blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
 A note on polymorphism.
 
-We defined those actions as mono-morphic. To cover for creatues that produce output other than gases, we would need to define more general functions. These would be poly-morphic <em>on the type</em> of their output.
+We defined those actions as mono-morphic. To cover for creatures that produce output other than gases, we can define more general functions. These would be poly-morphic <em>on the type</em> of their output.
 </blockquote>
 
 ```haskell
@@ -89,19 +89,19 @@ data Output = CO_2 | O_2   deriving (Show)
 class Livable where
     breath :: Output
 instance Livable where           -- implementation
-	breath = CO_2
+    breath = CO_2
 
 -- defines the actions pertaining to capable of moving
 class Movable where
-	move :: Where -> Where -> (Where, Where)
+    move :: Where -> Where -> (Where, Where)
 instance Movable where           -- implementation
-	move from to = (from, to)
+    move from to = (from, to)
 
 -- defines the actions pertaining to being plant-like
 class Photosynthesizable where
-	photosynth :: Output
+    photosynth :: Output
 instance Photosynthesizable where -- implementation
-	photosynth = O_2
+    photosynth = O_2
 
 -- constructor for the type Elysia, of which every elysia is an instance
 data Elysia
@@ -121,25 +121,25 @@ enum Output { CO_2, O_2 }
 
 // defines the actions pertaining to being alive
 interface ILivable {
-	default Output breath() {
-		return Output.CO_2;
+    default Output breath() {
+        return Output.CO_2;
 	}
 }
 // defines the actions pertaining to capable of moving
 interface IMovable {
-	default Tuple<Where, Where> move(Where from, Where to) {
-		return new Tuple(from, to);
+    default Tuple<Where, Where> move(Where from, Where to) {
+        return new Tuple(from, to);
 	}
 }
 // defines the actions pertaining to being plant-like
 interface IPhotosynthesizable {
-	default Output photosynthesize() {
-		return Output.O_2;
+    default Output photosynthesize() {
+        return Output.O_2;
 	}
 }
 class Elysia implements ILivable, IMovable, IPhotosynthesizable {
-	// other init such as constructor(s) omitted
-	String name() { get; }
+    // other init such as constructor(s) omitted
+    String name() { get; }
 }
 ```
 
