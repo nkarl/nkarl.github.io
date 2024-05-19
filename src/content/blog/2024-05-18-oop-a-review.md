@@ -147,7 +147,7 @@ This example has demonstrated that there are universal similarities between the 
 
 #### Where They Diverge
 
-In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply records instantiated for the sake of getting to the results. And the only way to ensure that results are deterministic is to compose functions in a way that they follow the rules of mathematics, much in the same way that integer addition over 1 and 1 always produces 2. I will leave it at that; anymore requires introducing algebraic structures, which is not within the scope of this post.
+In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply records instantiated for the sake of getting to the results.
 
 On the other hand, there is an over-emphasis on the object-class in OOP. The point of reference is on the structure of the objects themselves, not the actions and thus data. Because of this we had to come up with many language specifics over the years such as static methods, default interface methods, overriding methods and so on. This in my opinion is not ideal, especially when coupled with highly verbose languages.
 
