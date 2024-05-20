@@ -149,9 +149,8 @@ This example has demonstrated that there are universal similarities between the 
 
 In the functional approach, actions matter insofar as they produce some results that we anticipate. The objects themselves are simply transient for the sake of getting to the results.
 
-On the other hand, there is an over-emphasis on the object-class in OOP. The point of reference is on the structure of the objects themselves, not the actions and thus data. Because of this we had to come up with many language specifics over the years such as static methods, default interface methods, overriding methods and so on. This in my opinion is not ideal, especially when coupled with highly verbose languages.
 
-At some point, it seems to me that the focus on the data was lost, and the structure of the container took over and flooded the arguments.
+On the other hand with OOP, at some point, it seems to me that the focus on the data was lost, and the structure of the container took over and flooded the arguments. There seems to be an over-emphasis on the object-class in OOP. The point of reference is more on _the structure_ of the transient objects, rather than the actions and therefore data. Because of this we had to come up with many language specifics over the years such as static methods, default interface methods, overriding methods and so on. This in my opinion is not ideal, especially when coupled with highly verbose languages.
 
 ### The Problem that OOP Addressed
 
