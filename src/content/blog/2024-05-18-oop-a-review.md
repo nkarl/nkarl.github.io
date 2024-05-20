@@ -167,10 +167,10 @@ There has to be a way to "tag" variables according to their scope of use. In fac
 
 In fact, in my opinion it is more accurate to categorize the landscape of programming as a gradient around two poles: _functional programming_ and _masonic programming_.
 
-- The first paradigm aims for maximal correctness in mapping between theory and implementation.
-- The second paradigm aims for maximal performance and velocity of implementation due to being closer to bare metals.
+- The first pole is peak correctness in mapping between theory and implementation.
+- The second pole is peak performance and velocity of implementation (being closer to bare metals).
 
-The first paradigm naturally introduces constraints into the system. This is required at some point when the need for scaling emerges. For this reason, Java would fall into the first category. C on the other hand demands freedom from constraints, because performance demands simplicity. A C developer would say "We live day-to-day in a Newtonian world not a quantum-field world. We don't need to do a gradient descent every time we take a step forward. That would be ridiculous. We just walk ahead one step forward."
+The first paradigm naturally introduces constraints into the system. This requirement emerges at some point, when scaling is necessary. For this reason, Java would fall somewhere around the first pole. On the other hand, Assembly and C would be very close to the epicenter of the second paradigm. These two languages demands freedom from constraints, because performance demands simplicity. A C developer would say "We live day-to-day in a Newtonian world not a quantum-field world. We don't need to do a gradient descent every time we take a step forward. That would be ridiculous. We just walk ahead one step forward."
 
 <blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'><p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>&mdash; Matthieu Pageau (@PageauMatthieu) <a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a></blockquote>
 
