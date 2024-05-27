@@ -1,5 +1,5 @@
 ---
-title: 'Object-Oriented Programming – a Review'
+title: 'Object-Oriented Programming, A Review'
 description: 'I reviewed OOP.'
 pubDate: 'May 18 2024'
 ---
