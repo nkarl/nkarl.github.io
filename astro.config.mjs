@@ -1,7 +1,5 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-//import starlight from "@astro/starlight";
-import rehypeMermaid from "rehype-mermaid";
 import remarkMermaid from "astro-diagram/remark-mermaid";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
@@ -12,9 +10,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
 	markdown: {
 		shikiConfig: {
-			theme: "dracula",
+			//theme: "material-theme",
 		},
-		//remarkPlugins: [remarkMermaid],
+		remarkPlugins: [remarkMermaid],
 	},
 	site: 'https://nkarl.github.io',
 	integrations: [
@@ -23,11 +21,11 @@ export default defineConfig({
 			remarkPlugins: [
 				remarkMath,
 				remarkMermaid
-				],
+			],
 			rehypePlugins: [
 				rehypeKatex,
 				//rehypeMermaid
-				],
+			],
 		}),
 		sitemap(),
 	],
