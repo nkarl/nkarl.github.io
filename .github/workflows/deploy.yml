@@ -18,9 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: npx @astrojs/upgrade
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - run: npx @astrojs/upgrade
+      - run: pnpm upgrade
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
