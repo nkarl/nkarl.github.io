@@ -10,24 +10,24 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	markdown: {
-		syntaxHighlight: false, // disabled in order to use rehype plugins
-		shikiConfig: {
-			//theme: "material-theme",
-		},
-		remarkPlugins: [
-			remarkMath,
-			//remarkMermaid
-		],
-		rehypePlugins: [
-			rehypeKatex,
-			[rehypeMermaid, { strategy: "img-svg" }]
-		],
-	},
-	site: 'https://nkarl.github.io',
-	integrations: [
-		//starlight(),
-		mdx(),
-		sitemap(),
-	],
+  markdown: {
+    syntaxHighlight: false, // disabled in order to use rehype plugins
+    shikiConfig: {
+      //theme: "material-theme",
+    },
+    remarkPlugins: [
+      remarkMath,
+      //remarkMermaid
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      [rehypeMermaid, { strategy: "img-svg" }]
+    ],
+  },
+  site: 'https://nkarl.github.io',
+  integrations: [
+    //starlight(),
+    mdx(),
+    sitemap(),
+  ],
 });
