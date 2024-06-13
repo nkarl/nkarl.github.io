@@ -28,7 +28,7 @@ More specifically, I encountered the problem of memory alignment. I ran into thi
 
 Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. The headers used in the professor's book became obsolete. I ended up copied the actual Linux EXT2 header file from [Linus Torvalds' GitHub](https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h). The textbook version was missing fields, and the mismatch in `struct` layouts caused the program to spit out garbage.
 
-I didn't figure this out until I started a rework of the project a few months ago. I realized that I was missing so much knowledge about the abstraction layer below general applications. Now, I have been provided with another layer of context from Ritchie and Kernighan's book. It has cleared up some confusions and misunderstandings. 
+I didn't figure this out until I started a rework of the project a few months ago. I realized that I was missing so much knowledge about the abstraction layer just below the general applications. Now, I have been provided with a layer of context from Ritchie and Kernighan's book. It has cleared up some confusions and misunderstandings. 
 
 ## Final Thoughts
 
