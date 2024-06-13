@@ -1,0 +1,42 @@
+---
+title: Back to the Basic with ANSI C
+description: A reflection on the fundamentals of programming.
+pubDate: June 12 2024
+---
+
+I am going through the classic [The C Programming Language](https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628/) by Dennis Ritchie and Brian Kernighan. It is only 300 pages, surprisingly concise and easy to follow.
+
+Over this past year, I have read some interesting articles such as [the arena allocator](https://www.rfleury.com/p/untangling-lifetimes-the-arena-allocator) by Ryan Fleury, and bits and pieces from [@tsoding](https://twitter.com/tsoding) and other veteran developers. An idea naturally grew that I should look at C as a standalone language, free from the legacy of C++, which has been *claimed* to supercede C, because "more features" $=$ "better", right? Right?
+
+Well, back in college I came into contact with C++ first and developed the idea that C++ supercedes C, because I thought more features mean better.
+
+That was silly.
+
+I learned the hard way that this is not true. The two languages indeed share a great deal of syntatic coating, and C can interop with C++ most of the time. However, the places where they differ are significant. The two can be orthogonal in some categories of applications. These are advanced topics that have been mostly invisible to the eyes of the newbie me.
+
+Sometimes, things have to be learned the hard way.
+
+## So what was the problem?
+
+The problem was misaligned expectations.
+
+I got a reality check when reaching the course in Systems Programming and working on a Linux file-system project. My Systems professor -- who recently retired after having taught the course for 40 years (!) -- operated on a different time scale, using coding paradigm, patterns and system specs from a different point in time.
+
+To compound the problem further, the pre-requisite courses didn't prepare me enough for systems programming. Because I learned C++ first, I carried baggages such as object-oriented programming, template programming etc. These things are mostly unnecessary when programming at the kernel level. At this layer of abstraction, everything is about memory allocation and signal handling, for which, the *hardware specs* and *OS interface* must be considered.
+
+More specifically, I encountered the problem of memory alignment. I ran into this problem when trying to map data on disk to the file-system `struct` defined in the project's headers. The project itself is an EXT2 system for a presumed 32-bit architecture.
+
+Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. The headers used in the book (written by the professor) became obsolete. I ended up copied the actual Linux EXT2 header file from [Linus Torvalds' GitHub](https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h). The textbook version was missing fields, and the different `struct` layouts caused the program to spit out garbage.
+
+I didn't figure this out until I started a rework of the project a few months ago. I realized that I was missing so much knowledge about the lower abstraction layer. Now, I have been provided with another layer of context from reading Dennis Ritchie and Brian Kernighan's book. The book's simplicity has cleared up a lot of confusion and misunderstanding. 
+
+## Final Thoughts
+
+I am planning to pick the project up again. I think I left it in a good state.
+
+- I already set up a good framework with custom Makefile and directives for build and test.
+- I already have a clear model of the MVC pattern implemented and documented.
+- I made an early choice to separate data and actions, leaving the project maximally open for future changes.
+- I think some C++ features are genuinely useful if used correctly. For example,
+	- `namespace` is useful for separating actions into View and Controller (Read and Write).
+	- Using a `vector` saves time. Sometimes I know that I am folding an array, not waiting on data from a loop of arbitrarily deterministic time. In this case, I don't care about the bound of index. A vector is just a thin container for an array anyways.
