@@ -20,9 +20,9 @@ Sometimes, things have to be learned the hard way.
 
 The problem was misaligned expectations.
 
-I got a reality check when reaching the course in Systems Programming and working on a Linux file-system project. My Systems professor -- who recently retired after having taught the course for 40 years (!) -- operated on a different time scale, using coding paradigm, patterns and system specs from a different point in time.
+I got a reality check when reaching the course in Systems Programming and working on a Linux file-system project. My Systems professor -- who recently retired after having taught for 55 years (!) -- operated on a different time scale, using coding paradigm, patterns and system specs from a different point in time.
 
-The pre-requisite courses didn't prepare me enough for systems programming. I came in with little understanding of the hardware abstraction. To compound the problem, because I learned C++ first I carried baggages such as object-oriented programming, template programming etc. These things are mostly unnecessary when programming at the kernel level. At this layer of abstraction, everything is about memory allocation and signal handling, for which, the *hardware specs* and *OS interface* must be considered.
+The pre-requisite courses didn't prepare me enough to handle such an *ancient* being. I came in with little understanding of the hardware abstraction. To compound the problem, because I learned C++ first, I carried baggages such as object-oriented programming, template programming etc. These things are mostly unnecessary when programming at the kernel level. They actually *interfered* with the learning process. At this layer of abstraction, everything is about memory allocation and signal handling, for which, the *hardware specs* and *OS interface* must be considered.
 
 More specifically, I encountered the problem of memory alignment. I ran into this problem when trying to map data on disk to the file-system `struct` defined in the project's headers. The project itself is an EXT2 system for a presumed 32-bit architecture.
 
