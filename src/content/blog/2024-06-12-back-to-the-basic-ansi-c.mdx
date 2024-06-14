@@ -26,7 +26,7 @@ The pre-requisite courses didn't prepare me enough to handle such an *ancient* b
 
 More specifically, I encountered the problem of memory alignment. I ran into this problem when trying to map data on disk to the file-system `struct` defined in the project's headers. The project itself is an EXT2 system for a presumed 32-bit architecture.
 
-Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. Many default specs also changed from EXT2 to EXT4, such as block size and inode size. Ultimately, the mismatch in specs and memory layouts caused the program to spit out garbage.
+Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. Many default specs also changed subtly. Ultimately, the mismatch in specs and memory layouts caused the program to spit out garbage.
 
 The headers used in the professor's book became obsolete, so I ended up copying the EXT2 header file from [Linus Torvalds' GitHub](https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h).
 
