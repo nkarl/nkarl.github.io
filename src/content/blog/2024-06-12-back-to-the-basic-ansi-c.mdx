@@ -26,9 +26,11 @@ The pre-requisite courses didn't prepare me enough to handle such an *ancient* b
 
 More specifically, I encountered the problem of memory alignment. I ran into this problem when trying to map data on disk to the file-system `struct` defined in the project's headers. The project itself is an EXT2 system for a presumed 32-bit architecture.
 
-Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. The headers used in the professor's book became obsolete. I ended up copied the actual Linux EXT2 header file from [Linus Torvalds' GitHub](https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h). The textbook version was missing fields, and the mismatch in `struct` layouts caused the program to spit out garbage.
+Modern hardware have moved on from 32-bit to 64-bit. Many kernel `struct` were expanded to accomodate more information about the system. Many default specs also changed from EXT2 to EXT4, such as block size and inode size. Ultimately, the mismatch in specs and memory layouts caused the program to spit out garbage.
 
-I didn't figure this out until I started a rework of the project a few months ago. I realized that I was missing so much knowledge about the abstraction layer just below the general applications. Now, I have been provided with a layer of context from Ritchie and Kernighan's book. It has cleared up some confusions and misunderstandings. 
+The headers used in the professor's book became obsolete, so I ended up copying the EXT2 header file from [Linus Torvalds' GitHub](https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h).
+
+I figured this part out when started reworking the project a few months ago. I realized that I was missing so much knowledge about the abstraction layer just below the general applications. Now I have an added layer of context from Ritchie and Kernighan's book. It helps connect many fragments in my head together.
 
 ## Final Thoughts
 
