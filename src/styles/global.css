@@ -143,15 +143,17 @@ code {
 }
 
 pre {
+    display: unset;
+    display: flex;
     padding: 1.5em;
     border-radius: 8px;
     background-color: rgb(var(--gray-light));
 }
 
-pre>code {
-    display: unset;
+/*pre>code {*/
+    /*display: unset;*/
     /*background-color: rgb(var(--gray-light));*/
-}
+/*}*/
 
 blockquote {
     border-left: 4px solid var(--accent);
