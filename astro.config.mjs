@@ -12,9 +12,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   markdown: {
     syntaxHighlight: false, // disabled in order to use rehype plugins
-    shikiConfig: {
-      //theme: "material-theme",
-    },
+    //shikiConfig: {
+        //theme: "dracula",
+    //},
     remarkPlugins: [
       remarkMath,
       //remarkMermaid
