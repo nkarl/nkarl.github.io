@@ -137,6 +137,7 @@ img {
 
 /* FIX: temporary fix to code block */
 code {
+    font-size: 14px;
     padding: 0.175em;
     border-radius: 4px;
     background-color: rgb(var(--gray-light));
@@ -145,6 +146,7 @@ code {
 pre {
     display: unset;
     display: flex;
+    font-size: 14px;
     padding: 1.5em;
     border-radius: 8px;
     background-color: rgb(var(--gray-light));
@@ -153,6 +155,7 @@ pre {
 /*pre>code {*/
     /*display: unset;*/
     /*background-color: rgb(var(--gray-light));*/
+    /*font-size: 14px;*/
 /*}*/
 
 blockquote {
