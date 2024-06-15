@@ -136,11 +136,21 @@ img {
 }
 
 /* FIX: temporary fix to code block */
+code {
+    padding: 0.175em;
+    border-radius: 4px;
+    background-color: rgb(var(--gray-light));
+}
+
 pre {
     padding: 1.5em;
     border-radius: 8px;
     background-color: rgb(var(--gray-light));
-    border-radius: 2px;
+}
+
+pre>code {
+    display: unset;
+    /*background-color: rgb(var(--gray-light));*/
 }
 
 blockquote {
