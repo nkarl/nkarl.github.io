@@ -3,7 +3,6 @@ title: Differentiation (1)
 description: Let's differentiate a single-node function algorithmically.
 pubDate: June 17 2024
 ---
-import { Image } from "astro:assets";
 import nodeId from "/src/assets/2024-06-20/SingleNode-1-Id.svg"
 import nodeAdd from "/src/assets/2024-06-20/SingleNode-2-Add.svg"
 import nodeMul from "/src/assets/2024-06-20/SingleNode-3-Mul.svg"
@@ -42,11 +41,10 @@ $$
 Let's take a moment to get familiar with the components of the diagram below.
 
 <div style="display:block;text-align:center">
-<Image
-    src={nodeId}
+<img
+    src={nodeId.src}
+    style="width:500px;height:auto;display:block;margin-left:auto;margin-right:auto" 
     alt="computation node for the function Id."
-    width="480"
-    height="720"
 />
 </div>
 
@@ -82,11 +80,10 @@ $$
 Let's take a moment to get familiar with the components of the diagram below.
 
 <div style="display:block;text-align:center">
-<Image
-    src={nodeAdd}
+<img
+    src={nodeAdd.src}
+    style="width:500px;height:auto;display:block;margin-left:auto;margin-right:auto" 
     alt="computation node for the function Add."
-    width="480"
-    height="720"
 />
 </div>
 
@@ -118,7 +115,7 @@ Let's take a moment to get familiar with the components of the diagram below. No
 <img
     src={nodeMul.src}
     style="width:500px;height:auto;display:block;margin-left:auto;margin-right:auto" 
-    alt="Holy marina wacking the foolish head of a devil."
+    alt="computation node for the function Mul."
 />
 </div>
 
