@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 import mdx from '@astrojs/mdx';
 //import remarkMermaid from "astro-diagram/remark-mermaid";
 import rehypeKatex from "rehype-katex";
@@ -30,4 +30,10 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
+  experimental: {
+    assets: true,
+  },
+  image: {
+    service: sharpImageService(),
+  },
 });
