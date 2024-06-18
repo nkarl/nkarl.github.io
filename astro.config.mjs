@@ -30,7 +30,4 @@ export default defineConfig({
     mdx(),
     sitemap(),
   ],
-  image: {
-    service: sharpImageService(),
-  },
 });
