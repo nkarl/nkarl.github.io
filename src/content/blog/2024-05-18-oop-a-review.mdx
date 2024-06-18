@@ -75,11 +75,9 @@ Every action has an input and output. To keep it simple, we reduce the order of 
 - `move` is a little bit more complicated. Movements involve pathing, with a pair of start- and end-points. This pair contains more information and thus more useful to us. Thus, we will let it produce a coordinate tuple `(from, to)`.
 
 
-<blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
-A note on polymorphism.
-
-We defined those actions as mono-morphic. To cover for creatures that produce output other than gases, we can define more general functions. These would be poly-morphic <em>on the type</em> of their output.
-</blockquote>
+> A note on polymorphism.
+>
+> We defined those actions as mono-morphic. To cover for creatures that produce output other than gases, we can define more general functions. These would be poly-morphic *on the type* of their output.
 
 ```haskell
 data Where  = Here | There deriving (Show)
@@ -171,7 +169,11 @@ In fact, in my opinion it is more accurate to categorize the landscape of progra
 
 The first paradigm naturally introduces constraints into the system. This requirement emerges at some point, when scaling is necessary. For this reason, Java would fall somewhere around the first pole. On the other hand, Assembly and C would be very close to the epicenter of the second paradigm. These two languages demands freedom from constraints, because performance demands simplicity. A C developer would say "We live day-to-day in a Newtonian world not a quantum-field world. We don't need to do a gradient descent every time we take a step forward. That would be ridiculous. We just walk ahead one step forward."
 
-<blockquote class="twitter-tweet" data-conversation="none" data-dnt="true" style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'><p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>&mdash; Matthieu Pageau (@PageauMatthieu) <a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a></blockquote>
+<blockquote>
+<p lang="en" dir="ltr">And it&#39;s not just about &quot;laziness&quot; either. There is a spirit that WANTS to be poor and wandering. This is very hard to understand for some people for whatever reason. The spirit of poverty is important to the survival of civilization. It has some important roles to play.</p>
+&mdash; Matthieu Pageau (@PageauMatthieu)
+<a href="https://twitter.com/PageauMatthieu/status/1780956346961047568?ref_src=twsrc%5Etfw">April 18, 2024</a>
+</blockquote>
 
 The kind of programmers who opt for speed and performance do not want to be constrained. And they should not be, because they already conform themselves into pursuing speed and performance.
 

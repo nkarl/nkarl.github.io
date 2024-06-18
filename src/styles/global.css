@@ -150,6 +150,7 @@ pre {
     padding: 1.5em;
     border-radius: 8px;
     background-color: rgb(var(--gray-light));
+    margin-top: 2em; margin-bottom: 4em;
 }
 
 /*pre>code {*/
@@ -160,9 +161,11 @@ pre {
 
 blockquote {
     border-left: 4px solid var(--accent);
-    padding: 0 0 0 20px;
-    margin: 0px;
-    font-size: 1.333em;
+    padding: 0 0.75em; /*0 0 0 20px;*/
+    margin-left: 2em;/*margin: 0px;*/
+    margin-right: 2em;/*margin: 0px;*/
+    font-size: 1.0em; /*1.333em;*/
+    color:green;
 }
 
 hr {

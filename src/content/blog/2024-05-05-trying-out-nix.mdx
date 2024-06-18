@@ -14,23 +14,15 @@ I already had an inkling of what it does before coming in. What I didn't know is
 
 Ultimately, Nix is very similar to how I have been managing my NeoVim configuration for multiple devices. Nix should be a little more complex because of its responsibility, but the principle should be the same.
 
-<blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
-<p>
-For every reproducible system, there should be at least one and up to a few core config files.
-</p>
-</blockquote>
+> For every reproducible system, there should be at least one and up to a few core config files.
 
 Nix relies on these files to build or rebuild the system. Now, this is where Nix shines: every build/rebuild generates a new snapshot. In other words, building/rebuilding a Nix system is always **generative**. This is why Nix users can experiment and customize their systems without fear. If something unexpectedly breaks, you can simply take out the breaking dependency and rebuild to an earlier version. Or even simpler, you can revert to an earlier snapshot (that *has not been garbage collected*).
 
-<blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
-<p>
-Here, we can see that immutability is directly related to accountability and consistency.
-
-We write codes, and then tell the build system to compile and generate a binary executable, which we run as an application. A good build system can detect code changes and rebuild only the changed files. Some build systems allow us to specify tags to differentiate between snapshots. And then there is Git, which documents the entire history of changes for accountability. Consistency-wise, we are satisfied if we can produce the same outcome from the same code.
+> Here, we can see that immutability is directly related to accountability and consistency.
+>
+> We write codes, and then tell the build system to compile and generate a binary executable, which we run as an application. A good build system can detect code changes and rebuild only the changed files. Some build systems allow us to specify tags to differentiate between snapshots. And then there is Git, which documents the entire history of changes for accountability. Consistency-wise, we are satisfied if we can produce the same outcome from the same code.
 
 Nix takes all of these principles and applies them to the configuration of systems.
-</p>
-</blockquote>
 
 
 ## Choosing an Entry Point
@@ -52,13 +44,9 @@ docker run -it nixos/nix
 
 From here, we begin to play with the *shell environments*.
 
-<blockquote style='color:green;font-size:1em;padding:0 0.75em;margin-left:2em'>
-<p>
-If you don't have any systems background, here is a short explanation of what a shell is.
-
-Every computer runs on an OS, and at its core is something called a "kernel". We don't interact with the kernel directly for economic and security reasons. Rather, we use shells. The most simple shell is a terminal interface, which is all text-based. Graphical interfaces are a type of shell for good feelings with the obvious added complexity.
-</p>
-</blockquote>
+> If you don't have any systems background, here is a short explanation of what a shell is.
+>
+> Every computer runs on an OS, and at its core is something called a "kernel". We don't interact with the kernel directly for economic and security reasons. Rather, we use shells. The most simple shell is a terminal interface, which is all text-based. Graphical interfaces are a type of shell for good feelings with the obvious added complexity.
 
 From the default Docker shell, we can can start any *ad hoc* Nix shell instances by running `nix-shell` with at least one package specified (a dependency).
 
