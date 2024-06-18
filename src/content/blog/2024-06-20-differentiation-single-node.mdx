@@ -1,0 +1,153 @@
+---
+title: Differentiation (1)
+description: Let's differentiate a single-node function.
+pubDate: June 20 2024
+---
+import { Image } from "astro:assets";
+import nodeId from "/src/assets/2024-06-20/SingleNode.BackPropId.svg"
+import nodeAdd from "/src/assets/2024-06-20/SingleNode.BackPropAdd.svg"
+import nodeMul from "/src/assets/2024-06-20/SingleNode.BackPropMul.svg"
+
+Today, we'll work out the process of differentiating a simple function.
+
+This is the base case for a computation graph. Once we have the base case, we can look forward to the inductive case, and then generalize for more complex functions.
+
+>
+> Every function can be decomposed into a graph of elementary operators and operands. These are nodes in the graph.
+>
+
+## Examples
+
+We start with the simplest function: $id(x)$.
+
+This function takes an input value and returns the same value; hence $id$ -- short for the identity function.
+
+It doesn't do anything interesting, but it is an excellent entry point into understanding how to implement differentiation programmatically. Later, we will add more complexity by increasing the number of inputs in two other functions:
+
+- $add(x,y)$
+- $mul(x,y)$
+
+We will also see that there is a pattern to them. Let's get started.
+
+### 1. Id
+
+First, we define our function $f$ and its derivative $f'$:
+$$
+\begin{align*}
+f(x) &= id(x) &= x\\
+f'(x) &= dx &= 1
+\end{align*}
+$$
+
+Let's take a moment to get familiar with the components of the diagram below.
+
+<div style="display:block;text-align:center">
+<Image
+    src={nodeId}
+    alt="computation node for the function Id."
+    width="480"
+    height="720"
+/>
+</div>
+
+- The components:
+    - <span style="background:#97BEEE">&nbsp;Node&nbsp;</span>, <span style="background:#F4C111">&nbsp;Forward&nbsp;</span> chain, <span style="background:#26A169">&nbsp;Reverse&nbsp;</span> chain
+- The game rules for constructing the graph:
+    - at each node, we define
+        - the forward function to compute $id(x)$
+        - the reverse function to compute its derivative
+
+```python
+@dataclass
+class Node:
+    def f  (self):   # the forward function
+        return self
+
+    def f_ (self):   # the reverse function
+        return Value(1)
+```
+
+<p/>
+
+### 2. Add 
+
+The binary operator $(+)$ requires 2 parameters. So, we add one more input $y$ in this example. We define our function $f$ and its derivative $f'$:
+$$
+\begin{align*}
+f(x,y) &= add(x,y) &= x + y\\
+f'(x,y) &= d_xf + d_yf &= 1 + 1
+\end{align*}
+$$
+
+Let's take a moment to get familiar with the components of the diagram below.
+
+<div style="display:block;text-align:center">
+<Image
+    src={nodeAdd}
+    alt="computation node for the function Add."
+    width="480"
+    height="720"
+/>
+</div>
+
+```python
+@dataclass
+class Node:
+    def f  (self, other: Value):
+        return  self.data + other.data
+
+    def f_ (self):
+        return 2
+```
+
+<p/>
+
+### 3. Mul
+
+Finally, let's look at the example for $mul(x,y)$. This is also a binary operator. We define our function $f$ and its derivative $f'$:
+$$
+\begin{align*}
+f(x,y) &= mul(x,y) &= x \times y\\
+f'(x,y) &= d_xf + d_yf &= y + x
+\end{align*}
+$$
+
+Let's take a moment to get familiar with the components of the diagram below. Notice that other than the name difference and the polymorphic $f$ and $f'$, the form of the graph is identical to $add(x,y)$.
+
+<div style="display:block;text-align:center">
+<Image
+    src={nodeMul}
+    alt="computation node for the function Mul."
+    width="480"
+    height="720"
+/>
+</div>
+
+
+```python
+@dataclass
+class Node:
+    def f  (self, other: Value):
+        return  self.data * other.data
+
+    def f_ (self):
+        return self.data + other.data
+```
+<p/>
+
+## Finally
+
+To evaluate the computation graph for each case, we invoke the forward and reverse functions, respectively. We gain two results:
+
+- the result of $f$
+- its derivative $f'$
+
+Because there is only one node in each of these graphs, we are done.
+
+Notice the blue line in the middle of the last two diagrams. Imagine you print out the diagram on a piece of paper. You fold the piece of paper along the blue line. You will see that the nodes in the top-half superimpose the nodes in the bottom-half: $x$ together with $dx$, and $y$ with $dy$.
+
+We use a single graph to evaluate both *a function* and *its derivative*.
+
+Because this graph has only one node, the derivative components are discarded output. However, we will see that the member functions *forward* and *reverse* can be expanded to do more work, making use of the derivative components. They will let us model the Chain Rule for more complex functions.
+
+Until next time.
