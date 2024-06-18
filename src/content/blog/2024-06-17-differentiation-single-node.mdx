@@ -58,11 +58,13 @@ Let's take a moment to get familiar with the components of the diagram below.
 ```python
 @dataclass
 class Node:
+    data: float
+
     def f  (self):   # the forward function
         return self
 
     def f_ (self):   # the reverse function
-        return Value(1)
+        return Node(1)
 ```
 
 <p/>
@@ -90,11 +92,13 @@ Let's take a moment to get familiar with the components of the diagram below.
 ```python
 @dataclass
 class Node:
-    def f  (self, other: Value):
-        return  self.data + other.data
+    data: float
+
+    def f  (self, other: Node):
+        return  Node(self.data + other.data)
 
     def f_ (self):
-        return 2
+        return Node(2)
 ```
 
 <p/>
@@ -123,11 +127,13 @@ Let's take a moment to get familiar with the components of the diagram below. No
 ```python
 @dataclass
 class Node:
+    data: float
+
     def f  (self, other: Value):
-        return  self.data * other.data
+        return  Node(self.data * other.data)
 
     def f_ (self):
-        return self.data + other.data
+        return Node(self.data + other.data)
 ```
 <p/>
 
