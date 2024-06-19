@@ -175,7 +175,7 @@ hr {
 
 @media (max-width: 720px) {
     body {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     main {
@@ -183,7 +183,7 @@ hr {
     }
     
     code {
-      font-size: 12px;
+      font-size: 10px;
     }
 }
 
