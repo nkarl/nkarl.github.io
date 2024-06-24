@@ -1,0 +1,229 @@
+---
+title: Unit Symbols and the Chain Rule (2)
+description: Working out the chain rule for single input functions.
+pubDate: 'June 26 2024'
+---
+
+In [the previous post](/blog/2024-06-04-think-symbolically), we explored symbolic representation and the recursive nature of the Chain Rule. We also looked briefly at the identity $\mathbf{unit}$.
+
+In this post I discuss in more details these concepts by analyzing the Chain Rule for functions of single input.
+
+## Abstraction
+
+Let's look at a concrete example in the following function:
+
+$$
+\begin{align*}
+\mathbf{F}(x)
+	&= sin^2(x)\\
+	&= h
+		&\textbf{where}\quad
+		g &= sin(x)\\
+	&
+		&
+		h &= g^2\\
+\end{align*}
+$$
+
+Using the Chain Rule, we can derive $\mathbf{F'}$ with respect to $x$:
+
+$$
+\begin{align*}
+\mathbf{F'}(x)
+	&=h'
+        &\cdot\quad& g'\\
+	&=(2\cdot g)
+		&\cdot\quad& cos(x)\\ &=(2\cdot sin(x))
+		&\cdot\quad& cos(x)
+\end{align*}
+$$
+
+Now consider this: symbolically, $x$ is just a placeholder for some constant value that we will plugin later. What if we also apply this concept to the symbol $h$?
+
+If we think about it, any engineering process starts with a tabulated set of data, which is the result of a series of high-ordered actions of measurement. These actions are eventually abstracted into numerical values of some predefined units. For example, distances can be measured in units of *the foot* or its multipliers such as the *yard* and *mile* (or the inverse multiplier *inch*). However, what actually happens is that the unit *foot* has to be defined and standardized, and then *someone* has to *physically walk* the distance, mark and count the units. All of these are high-ordered actions that are abstracted under a symbolic $\mathbf{unit}$. Other units of measurement (SI or Imperial) are defined in a similar manner.
+
+>
+> A measurement is a series of high-ordered actions collapsed into a value.
+>
+
+Given this premise, let's assume that $h$ is also a placeholder for some constant value that we will plugin later. Then:
+
+$$
+\begin{align*}
+\mathbf{F}(h)
+	&=&h\\\\\\
+\mathbf{F}'(h)
+	&=&\mathbf{\color{lightgray}unit_h}\\\\
+\mathbf{F}'(g)
+	&=&(2\cdot g)
+		&\quad\cdot& \mathbf{\color{lightgray}unit_g}\\\\
+\mathbf{F}'(x)
+	&=&(2\cdot sin(x))
+		&\quad\cdot& cos(x)
+		&\quad\cdot& \mathbf{\color{lightgray}unit_x}\\\\
+\text{where}:\quad
+\mathbf{F}'(x)
+	&=&h'
+		&\quad\cdot& g'
+		&\quad\cdot& x'
+\end{align*}
+$$
+
+We notice that each unit can be expanded only as needed, one symbol at a time. <span style='text-shadow:0 0 5px yellow'>In other words, a *unit* can be used as is, or decomposed into its constituents</span>.
+
+Thus, the derivative of some functional $\mathbf{F}$ can be defined recursively as follows:
+
+$$
+\begin{align*}
+D_z\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\\\\
+D_y\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
+	\frac{\partial\mathbf{F}}{\partial y}
+	\cdot\mathbf{\color{lightgray}unit_{y}}\\\\
+D_x\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
+	\frac{\partial\mathbf{F}}{\partial y}
+	\cdot\frac{\partial y}{\partial x}
+	\cdot\mathbf{\color{lightgray}unit_{x}}\\\\
+\vdots\\\\
+D_a\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
+	\frac{\partial\mathbf{F}}{\partial y}
+	\cdot\frac{\partial y}{\partial x}
+	\cdot\quad\dots\quad
+	\cdot\frac{\partial b}{\partial a}
+	\cdot\mathbf{\color{lightgray}unit_{a}}\\\\
+\end{align*}
+$$
+
+Again, remember that each partial derivative is *a quantity* that can be evaluated locally according to its respective unit. For example, given a first-ordered function $y$ of some input $x$, the derivative of $y$ is simply: the $\mathbf{unit_x}$ <em style='text-shadow:0 0 5px yellow'>scaled by the quantity</em> $\partial{y}/\partial{x}$. It is entirely possible that $x$ can be decomposed into smaller constituents. However, we don't care about that since our function $f$ is defined in terms of $x$ at the base. Therefore, we solidify the chain at $\mathbf{unit_x}$ and call it the *total derivative* with respect to $x$.
+
+$$
+y'(x) = \frac{\partial y}{\partial x}\cdot\mathbf{\color{lightgray}unit_{x}} = \frac{dy}{dx}
+$$
+
+## Example
+
+We will evaluate at $x = 2$ the following function and its derivative:
+
+$$
+f(x) = ln(x^2)\quad\quad\textbf{where}\quad x = 2
+$$
+
+### 1. Chain Rule: standard form
+
+$$
+\begin{align*}
+\text{let}:\quad
+f(y)
+	&= ln(y)
+    &\leftarrow& \quad y=x^2\\\\
+f(z)
+	&= z
+    &\leftarrow& \quad z=ln(y)\\\\
+\end{align*}
+$$
+$$
+\begin{align*}
+\text{then}:\quad
+f'(z)
+	&=\mathbf{\color{lightgray}unit_z}\\\\
+f'(y)
+	&=\mathbf{\color{lightgray}unit_z}\cdot
+	\left(\frac{\partial z}{\partial y}\right)
+		\cdot\mathbf{\color{lightgray}unit_y}\\\\
+f'(x)
+	&=\mathbf{\color{lightgray}unit_z}\cdot
+	\left(\frac{\partial z}{\partial y}\right)
+		\cdot
+    \left(\frac{\partial y}{\partial x}\right)
+		\cdot\mathbf{\color{lightgray}unit_x}\\\\
+	&=\mathbf{\color{lightgray}unit_z}\cdot
+	\left({1}/{y}\right)
+		\cdot(2\cdot x)
+		\cdot\mathbf{\color{lightgray}unit_x}\\\\
+	&=\mathbf{\color{lightgray}unit_z}\cdot
+	\left({1}/{x^2}\right)
+		\cdot(2\cdot x)
+		\cdot\mathbf{\color{lightgray}unit_x}\\\\
+	&=\mathbf{\color{lightgray}unit_z}\cdot
+	\left({1}/{2^2}\right)
+		\cdot(2\cdot 2)
+		\cdot\mathbf{\color{lightgray}unit_x}\\\\
+\end{align*}
+$$
+
+Every partial derivative has to be expanded and evaluated individually. Also note the two sets of parentheses aligned vertically. They start branching out at $f'(y)$.
+
+### 2. Chain Rule: modified form with eager evaluation
+
+We compute the components and partial derivatives at $x = 2$:
+$$
+\begin{align*}
+\text{we define the symbol}:\quad
+{\color{red}y}   &= x^2
+        &\rightarrow &\quad 4\\
+y'  &=  2\cdot x
+        &\rightarrow &\quad {\color{blue}4}\\
+f(y)
+	&= ln(y)
+        &\rightarrow &\quad ln(4)\\
+f'(y)
+	&= y^{-1}
+        &\rightarrow &\quad {\color{blue}0.25}\\\\
+\end{align*}
+$$
+$$
+\begin{align*}
+\text{we define the symbol}:\quad
+{\color{red}z}
+    &= ln(y)
+        &\rightarrow &\quad ln(4)\\
+z'  &=  
+        &\rightarrow &\quad 1\\
+f(z)
+	&= z
+        &\rightarrow &\quad ln(4)\\
+f'(z)
+	&= \mathbf{\color{lightgray}unit_z}
+        &\rightarrow &\quad 1\\
+\end{align*}
+$$
+$$
+\begin{align*}
+\\\text{then}:\quad
+f'(z)
+	&=\mathbf{\color{lightgray}unit_z}\\\\
+f'(y)
+	&=\mathbf{\color{lightgray}unit_z} \cdot
+    \underbrace{\frac{\partial{z}}{\partial{y}}
+    \cdot\mathbf{\color{lightgray}unit_y}
+    }_{\color{blue}0.25}
+		\\\\
+f'(x)
+	&=\mathbf{\color{lightgray}unit_z}\cdot 0.25 \cdot
+    \underbrace{\frac{\partial{y}}{\partial{x}}
+		\cdot
+        \mathbf{\color{lightgray}unit_x}
+    }_{\color{blue}4}
+\end{align*}
+$$
+
+### 3. Observations and Notes
+
+There are a couple things to note here in the modified form:
+
+1. we evaluate all partial derivatives as soon as possible.
+2. notice how it takes fewer steps (starting from *then*) to evaluate $f'(x)$.
+
+Because we eagerly evaluated all *partial derivatives*, we ended up having to do less work computing the *total derivative* at the end.
+
+Essentially, in the standard chain rule, <span style='text-shadow: 0 0 5px yellow'>the evaluation of the total derivative is deferred to the very end</span>. Note that every line (starting from *then*) represents an expansion step. We recursively expand each symbol, finally plug the input $x$ in at the end and compute the expression. Because of this deferment, we ended up having to perform <strong><em>two branches</em></strong> of computations. We can easily trace this with a computation graph (left as an exercise for the reader -- you can check out the [previous post](/blog/2024-06-04-think-symbolically) for example graphs).
+
+On the other hand, in the modified version, rather than deferring, we use the input $x$ right away and <span style='text-shadow: 0 0 5px yellow'>compute each partial derivative as soon as possible</span>. Whenever we evalute a function $f$, we also evaluate its partial derivative $f'$ at the respective symbolic unit. By the time we get to evaluating the total derivative, we *already* have the partial derivative quantities. We just need to plug in and complete the evaluation.
+
+## Summary
+
+In this post, I have shown that symbolic representation helps us frame the Chain Rule recursively. By folding or unfolding symbols, we can simplify and localize the complexity of a problem. In the process, we also noticed a pattern of computation and optimized it.
+
+I find the concept of *recursive* $\mathbf{unit}$ to be very useful. It can be applied more generally to other aspects of programming.
+
+For example, we know that a running program is treated as a process by the OS and has resources allocated accordingly. The **unit** here is *process*, and the load on the system is the amount of processes running concurrently. That is one way of framing the measurement. On the other hand, we can also go deeper into the program's source code and map out the function call graph, each function as *sub-unit* and its resource allocation. In this case, we may frame our measurements in terms of the more detailed resource allocation.
+

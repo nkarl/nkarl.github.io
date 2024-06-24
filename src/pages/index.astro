@@ -43,29 +43,35 @@ const posts = (await getCollection("blog"))
 
       <br />
       <div class="blog-list">
-        <section>
-          <ul style="list-style-type:none">
+        <section style="width:75%">
+          <table>
             {
               posts &&
                 posts.map((post) => (
-                  <li>
-                    <a href={`/blog/${post.slug}/`}>
-                      <h4 class="title">{post.data.title}</h4>
-                      <p class="date">
+                  <tr>
+                    <td style="width:80%">
+                      <a href={`/blog/${post.slug}/`}>
+                        <h5 class="title" style="margin:unset; padding:unset">
+                          {post.data.title}
+                        </h5>
+                      </a>
+                    </td>
+                    <td>
+                      <p class="date" style="text-align:right">
                         <FormattedDate date={post.data.pubDate} />
                       </p>
-                    </a>
-                  </li>
+                    </td>
+                  </tr>
                 ))
             }
             {
               !posts && (
-                <li>
+                <tr>
                   <h3 style="color:gray">Nothing to see here yet.</h3>
-                </li>
+                </tr>
               )
             }
-          </ul>
+          </table>
         </section>
       </div>
     </main>
