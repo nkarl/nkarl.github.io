@@ -18,16 +18,49 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Check out my blog GitHub repo
         uses: actions/checkout@v4
-      - run: |
-          npx playwright install
-      - name: Install, build, and upload your site
-        uses: withastro/action@v2
+
+      - name: Set up PNPM as package manager
+        uses: pnpm/action-setup@v4
         with:
-           path: . # The root location of your Astro project inside the repository. (optional)
-           node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
-           package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      # Playwright, you keep fucking me over. I'm sick of your shit.
+      #- name: Update packages if needed
+        #run: |
+          #pnpm update
+      - name: Install all dependencies 
+        run: |
+          pnpm install
+          pnpm install playwright
+          pnpm exec playwright install
+          pnpm run build
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist/"
 
   deploy:
     needs: build
