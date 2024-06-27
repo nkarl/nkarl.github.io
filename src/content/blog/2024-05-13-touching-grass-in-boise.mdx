@@ -23,7 +23,9 @@ data Where = Here | There deriving (Show)
 data Which = Grass | Poop | Bug deriving (Show)
 data Touch = Right Where | Don't | Might deriving (Show)
 
-data Something = Something { which_is :: Which, where_is :: Where } deriving (Show)
+data Something = Something {
+    which_is :: Which, where_is :: Where
+} deriving (Show)
 
 class Touchable where
   touch :: Maybe Something -> Maybe Touch
@@ -38,7 +40,9 @@ instance Touchable where
         Poop -> Just Don't
         Bug -> Just Might
 
-data Result = Result { it_is :: Maybe Something, touched :: Maybe Touch } deriving (Show)
+data Result = Result {
+    it_is :: Maybe Something, touched :: Maybe Touch
+} deriving (Show)
 
 test :: IO ()
 test = do

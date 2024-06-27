@@ -125,10 +125,11 @@ img {
 
 /* FIX: temporary fix to code block */
 code {
-  font-size: 14px;
-  padding: 0.175em;
+  font-size: 1rem;
+  padding: 0.175em 0.375em;
   border-radius: 4px;
-  /*background-color: rgb(var(--gray-light));*/
+  background-color: rgb(var(--gray-light));
+  color: #800020;
 }
 
 pre {
@@ -142,11 +143,12 @@ pre {
   margin-bottom: 4em;
 }
 
-/*pre>code {*/
+pre>code {
 /*display: unset;*/
-/*background-color: rgb(var(--gray-light));*/
-/*font-size: 14px;*/
-/*}*/
+color:unset;
+background-color: unset/*rgb(var(--gray-light))*/;
+font-size: 14px;
+}
 
 blockquote {
   border-radius: 0 0.75em;
