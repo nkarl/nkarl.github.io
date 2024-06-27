@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
-import rehypeMermaid from "rehype-mermaid";
+//import rehypeMermaid from "rehype-mermaid";
 
 import sitemap from '@astrojs/sitemap';
 
@@ -21,7 +21,7 @@ export default defineConfig({
     ],
     rehypePlugins: [
       rehypeKatex,
-      [rehypeMermaid, { strategy: "img-svg" }]
+      //[rehypeMermaid, { strategy: "img-svg" }]
     ],
   },
   site: 'https://nkarl.github.io',
