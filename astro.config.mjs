@@ -11,7 +11,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-    syntaxHighlight: false, // disabled in order to use rehype plugins
+    //syntaxHighlight: false, // disabled in order to use rehype plugins
     //shikiConfig: {
         //theme: "dracula",
     //},

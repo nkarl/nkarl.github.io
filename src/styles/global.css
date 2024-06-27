@@ -126,7 +126,7 @@ img {
 /* FIX: temporary fix to code block */
 code {
   font-size: 1rem;
-  padding: 0.175em 0.375em;
+  padding: 0.175em 0.175em;
   border-radius: 4px;
   background-color: rgb(var(--gray-light));
   color: #800020;

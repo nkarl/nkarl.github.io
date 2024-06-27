@@ -73,17 +73,7 @@ $$
 \mathbf{F}(x) = 2\cdot x+2\cdot sin^2(x)
 $$
 
-```mermaid
-graph RL
-sum --> F
-dot1[dot] --> sum
-s1[2] --> dot1[dot]
-x1[x] --> dot1
-dot2[dot] --> sum
-s2[2] --> dot2
-sin --> square --> dot2
-x2[x] --> sin
-```
+![](https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggUkxcbnN1bSAtLT4gRlxuZG90MVtkb3RdIC0tPiBzdW1cbnMxWzJdIC0tPiBkb3QxW2RvdF1cbngxW3hdIC0tPiBkb3QxXG5kb3QyW2RvdF0gLS0-IHN1bVxuczJbMl0gLS0-IGRvdDJcbnNpbiAtLT4gc3F1YXJlIC0tPiBkb3QyXG54Mlt4XSAtLT4gc2luXG4iLCJtZXJtYWlkIjp7InRoZW1lIjoiZGVmYXVsdCJ9LCJ1cGRhdGVFZGl0b3IiOmZhbHNlfQ)
 
 Notice that we can separate the expression into groups, each group is a symbolic unit representing a branch of the binary operator sum $(+)$.
 $$
@@ -92,23 +82,7 @@ $$
 \overbrace{2\cdot sin^2(x)}^{\text{group 2}}
 $$
 
-```mermaid
-graph RL
-sum --> F[<strong>F</strong>]
-g1[<strong>g1</strong>] --> sum
-g2[<strong>g2</strong>] --> sum
-dot1[dot] --> g1
-subgraph exp1[group 1]
-s1[2] --> dot1
-x1[x] --> dot1
-end
-dot2[dot] --> g2
-subgraph exp2[group 2]
-s2[2] --> dot2
-sin --> square --> dot2
-x2[x] --> sin
-end
-```
+![](https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggUkxcbnN1bSAtLT4gRls8c3Ryb25nPkY8L3N0cm9uZz5dXG5nMVs8c3Ryb25nPmcxPC9zdHJvbmc-XSAtLT4gc3VtXG5nMls8c3Ryb25nPmcyPC9zdHJvbmc-XSAtLT4gc3VtXG5kb3QxW2RvdF0gLS0-IGcxXG5zdWJncmFwaCBleHAxW2dyb3VwIDFdXG5zMVsyXSAtLT4gZG90MVxueDFbeF0gLS0-IGRvdDFcbmVuZFxuZG90Mltkb3RdIC0tPiBnMlxuc3ViZ3JhcGggZXhwMltncm91cCAyXVxuczJbMl0gLS0-IGRvdDJcbnNpbiAtLT4gc3F1YXJlIC0tPiBkb3QyXG54Mlt4XSAtLT4gc2luXG5lbmRcbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9)
 
 We can continue this process. We can define new groups recursively for new operators/functions until we reach the base cases, which is either a *scalar* or a *variable*, the latter of which might be a recursive symbol itself.
 
