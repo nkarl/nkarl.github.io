@@ -69,22 +69,26 @@ $$
 \end{align*}
 $$
 
-We notice that each unit can be expanded only as needed, one symbol at a time. <span style='text-shadow:0 0 5px yellow'>In other words, a *unit* can be used as is, or decomposed into its constituents</span>.
+We notice that each unit can be expanded only as needed, one symbol at a time. <span style='background:yellow;color:green'>In other words, a *unit* can be used as is, or decomposed into its constituents</span>.
 
 Thus, the derivative of some functional $\mathbf{F}$ can be defined recursively as follows:
 
 $$
 \begin{align*}
-D_z\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\\\\
-D_y\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
+D_z\mathbf{F}
+    &=\mathbf{\color{lightgray}unit_z}\\\\
+D_y\mathbf{F}
+    &=
 	\frac{\partial\mathbf{F}}{\partial y}
 	\cdot\mathbf{\color{lightgray}unit_{y}}\\\\
-D_x\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
-	\frac{\partial\mathbf{F}}{\partial y}
+D_x\mathbf{F}
+    &=
+    \frac{\partial\mathbf{F}}{\partial y}
 	\cdot\frac{\partial y}{\partial x}
 	\cdot\mathbf{\color{lightgray}unit_{x}}\\\\
 \vdots\\\\
-D_a\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
+D_a\mathbf{F}
+    &=
 	\frac{\partial\mathbf{F}}{\partial y}
 	\cdot\frac{\partial y}{\partial x}
 	\cdot\quad\dots\quad
@@ -93,7 +97,7 @@ D_a\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\cdot
 \end{align*}
 $$
 
-Again, remember that each partial derivative is *a quantity* that can be evaluated locally according to its respective unit. For example, given a first-ordered function $y$ of some input $x$, the derivative of $y$ is simply: the $\mathbf{unit_x}$ <em style='text-shadow:0 0 5px yellow'>scaled by the quantity</em> $\partial{y}/\partial{x}$. It is entirely possible that $x$ can be decomposed into smaller constituents. However, we don't care about that since our function $f$ is defined in terms of $x$ at the base. Therefore, we solidify the chain at $\mathbf{unit_x}$ and call it the *total derivative* with respect to $x$.
+Again, remember that each partial derivative is *a quantity* that can be evaluated locally according to its respective unit. For example, given a first-ordered function $y$ of some input $x$, the derivative of $y$ is simply: <em style='background:yellow;color:green'>the $\mathbf{unit_x}$ scaled by the quantity $\partial{y}/\partial{x}$</em>. It is entirely possible that $x$ can be decomposed into smaller constituents. However, we don't care about that since our function $f$ is defined in terms of $x$ at the base. Therefore, we solidify the chain at $\mathbf{unit_x}$ and call it the *total derivative* with respect to $x$.
 
 $$
 y'(x) = \frac{\partial y}{\partial x}\cdot\mathbf{\color{lightgray}unit_{x}} = \frac{dy}{dx}
@@ -124,29 +128,30 @@ $$
 \begin{align*}
 \text{then}:\quad
 f'(z)
-	&=\mathbf{\color{lightgray}unit_z}\\\\
+	&=\mathbf{\color{lightgray}unit_z}
+    \\\\
 f'(y)
-	&=\mathbf{\color{lightgray}unit_z}\cdot
+	&=
 	\left(\frac{\partial z}{\partial y}\right)
-		\cdot\mathbf{\color{lightgray}unit_y}\\\\
+		&\cdot&\mathbf{\color{lightgray}unit_y}\\\\
 f'(x)
-	&=\mathbf{\color{lightgray}unit_z}\cdot
+	&=
 	\left(\frac{\partial z}{\partial y}\right)
-		\cdot
+		&\cdot&
     \left(\frac{\partial y}{\partial x}\right)
-		\cdot\mathbf{\color{lightgray}unit_x}\\\\
-	&=\mathbf{\color{lightgray}unit_z}\cdot
+		&\cdot&\mathbf{\color{lightgray}unit_x}\\\\
+	&=
 	\left({1}/{y}\right)
-		\cdot(2\cdot x)
-		\cdot\mathbf{\color{lightgray}unit_x}\\\\
-	&=\mathbf{\color{lightgray}unit_z}\cdot
+		&\cdot&(2\cdot x)
+		&\cdot&\mathbf{\color{lightgray}unit_x}\\\\
+	&=
 	\left({1}/{x^2}\right)
-		\cdot(2\cdot x)
-		\cdot\mathbf{\color{lightgray}unit_x}\\\\
-	&=\mathbf{\color{lightgray}unit_z}\cdot
+		&\cdot&(2\cdot x)
+		&\cdot&\mathbf{\color{lightgray}unit_x}\\\\
+	&=
 	\left({1}/{2^2}\right)
-		\cdot(2\cdot 2)
-		\cdot\mathbf{\color{lightgray}unit_x}\\\\
+		&\cdot&(2\cdot 2)
+		&\cdot&\mathbf{\color{lightgray}unit_x}\\\\
 \end{align*}
 $$
 
@@ -176,7 +181,8 @@ $$
 {\color{red}z}
     &= ln(y)
         &\rightarrow &\quad ln(4)\\
-z'  &=  
+z'
+	&= \mathbf{\color{lightgray}unit_z}
         &\rightarrow &\quad 1\\
 f(z)
 	&= z
@@ -192,16 +198,17 @@ $$
 f'(z)
 	&=\mathbf{\color{lightgray}unit_z}\\\\
 f'(y)
-	&=\mathbf{\color{lightgray}unit_z} \cdot
-    \underbrace{\frac{\partial{z}}{\partial{y}}
-    \cdot\mathbf{\color{lightgray}unit_y}
+	&=
+    \underbrace{
+        ({\partial{z}}/{\partial{y}})
+        \cdot\mathbf{\color{lightgray}unit_y}
     }_{\color{blue}0.25}\\\\
 f'(x)
-	&=\mathbf{\color{lightgray}unit_z}\cdot 0.25\cdot
+	&={\color{blue}0.25}\cdot
     \underbrace{
-        \frac{\partial{y}}{\partial{x}}
+        ({\partial{y}}/{\partial{x}})
 		\cdot\mathbf{\color{lightgray}unit_x}
-    }_{\color{blue}4}
+    }_{\color{blue}4} = 1\cdot{\color{lightgray}\mathbf{unit_x}}
 \end{align*}
 $$
 
@@ -226,3 +233,6 @@ I find the concept of *recursive* $\mathbf{unit}$ to be very useful. It can be a
 
 For example, we know that a running program is treated as a process by the OS and has resources allocated accordingly. The $\mathbf{unit}$ here is *process*, and the load on the system is the amount of processes running concurrently. That is one way of framing the measurement. On the other hand, we can also go deeper into the program's source code and map out the function call graph, each function as *sub-unit* and its resource allocation. In this case, we may frame our measurements in terms of the more detailed resource allocation.
 
+In the next post, we will work through a simple example to frame these concepts better.
+
+Until next time.
