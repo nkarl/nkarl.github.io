@@ -154,7 +154,7 @@ Every partial derivative has to be expanded and evaluated individually. Also not
 
 ### 2. Chain Rule: modified form with eager evaluation
 
-We compute the components and partial derivatives at $x = 2$:
+We compute the function's symbols and its respective partial derivatives at $x = 2$:
 $$
 \begin{align*}
 \text{we define the symbol}:\quad
@@ -195,13 +195,12 @@ f'(y)
 	&=\mathbf{\color{lightgray}unit_z} \cdot
     \underbrace{\frac{\partial{z}}{\partial{y}}
     \cdot\mathbf{\color{lightgray}unit_y}
-    }_{\color{blue}0.25}
-		\\\\
+    }_{\color{blue}0.25}\\\\
 f'(x)
-	&=\mathbf{\color{lightgray}unit_z}\cdot 0.25 \cdot
-    \underbrace{\frac{\partial{y}}{\partial{x}}
-		\cdot
-        \mathbf{\color{lightgray}unit_x}
+	&=\mathbf{\color{lightgray}unit_z}\cdot 0.25\cdot
+    \underbrace{
+        \frac{\partial{y}}{\partial{x}}
+		\cdot\mathbf{\color{lightgray}unit_x}
     }_{\color{blue}4}
 \end{align*}
 $$
@@ -215,9 +214,9 @@ There are a couple things to note here in the modified form:
 
 Because we eagerly evaluated all *partial derivatives*, we ended up having to do less work computing the *total derivative* at the end.
 
-Essentially, in the standard chain rule, <span style='text-shadow: 0 0 5px yellow'>the evaluation of the total derivative is deferred to the very end</span>. Note that every line (starting from *then*) represents an expansion step. We recursively expand each symbol, finally plug the input $x$ in at the end and compute the expression. Because of this deferment, we ended up having to perform <strong><em>two branches</em></strong> of computations. We can easily trace this with a computation graph (left as an exercise for the reader -- you can check out the [previous post](/blog/2024-06-04-think-symbolically) for example graphs).
+Essentially, in the standard chain rule, <span style='background: yellow;color:green'>the evaluation of the total derivative is deferred to the very end</span>. Note that every line (starting from *then*) represents an expansion step. We recursively expand each symbol, finally plug the input $x$ in only at the end to compute the expression. Because of this deferment, we ended up having to perform <strong><em>two branches</em></strong> of computations. We can easily trace this with a computation graph (left as an exercise for the reader -- you can check out the [previous post](/blog/2024-06-04-think-symbolically) for example graphs).
 
-On the other hand, in the modified version, rather than deferring, we use the input $x$ right away and <span style='text-shadow: 0 0 5px yellow'>compute each partial derivative as soon as possible</span>. Whenever we evalute a function $f$, we also evaluate its partial derivative $f'$ at the respective symbolic unit. By the time we get to evaluating the total derivative, we *already* have the partial derivative quantities. We just need to plug in and complete the evaluation.
+On the other hand, in the modified version, rather than deferring, we use the input $x$ right away and <span style='background:yellow;color:green'>compute the partial derivative at each node</span>. Whenever we evalute a function $f$, we also evaluate its partial derivative $f'$ at the respective symbolic unit. By the time we get to evaluating the total derivative, we will have *already* passed through all partial derivative quantities. The total derivative is collected at the final computation node.
 
 ## Summary
 

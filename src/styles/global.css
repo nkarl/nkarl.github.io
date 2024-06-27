@@ -11,7 +11,7 @@
   --gray: 96, 115, 159;
   --gray-light: 229, 233, 240;
   --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
+  --gray-gradient: rgba(var(--gray-light), 75%), #fff;
   --box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
     0 16px 32px rgba(var(--gray), 33%);
   text-underline-offset: 2px;
@@ -149,12 +149,30 @@ pre {
 /*}*/
 
 blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0.25em 0.75em; /*0 0 0 20px;*/
+  border-radius: 0 0.75em;
+  border-left: 8px solid goldenrod;/*var(--accent);*/
+  padding: 0.25em 1.5em; /*0 0 0 20px;*/
   margin: 0 2em;
-  font-size: 1.0em; /*1.333em;*/
+  margin-bottom: 4em;
+  font-size: 1.125em; /*1.333em;*/
   color: green;
   background: linear-gradient(var(--gray-gradient)) no-repeat;
+  animation: blockquote-glow 4s ease-in-out infinite alternate;
+}
+
+.blockquote-glow {
+  -webkit-animation: blockquote-glow 1s ease-in-out infinite alternate;
+  -moz-animation: blockquote-glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes blockquote-glow {
+  from {
+    border-left: 8px solid gold;/*var(--accent);*/
+  }
+
+  to {
+    border-left: 8px solid goldenrod;/*var(--accent);*/
+  }
 }
 
 hr {
@@ -192,4 +210,31 @@ hr {
   clip-path: inset(50%);
   /* added line to stop words getting smushed together (as they go onto seperate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
+}
+
+.mermaid {
+  max-width:100%;
+  overflow: scroll;
+}
+
+svg {
+  display:block;
+  margin:auto;
+  /*max-width: 110%;*/
+}
+body {
+  --file-line-width: 1000px;
+}
+
+.markdown-source-view.readable-line-width .CodeMirror,
+.markdown-source-view.mod-cm6.readable-line-width .cm-sizer,
+.markdown-preview-view.readable-line-width .markdown-preview-sizer {
+  max-width: var(--file-line-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.markdown-source-view.mod-cm6.readable-line-width .cm-content,
+.markdown-source-view.mod-cm6.readable-line-width .cm-line {
+  max-width: var(--file-line-width);
 }
