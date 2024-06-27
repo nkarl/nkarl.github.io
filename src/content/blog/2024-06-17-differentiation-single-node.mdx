@@ -1,5 +1,5 @@
 ---
-title: Differentiation (1)
+title: Differentiable Programming (1)
 description: Let's differentiate a single-node function algorithmically.
 pubDate: June 17 2024
 ---
@@ -17,14 +17,14 @@ This is the base case for a computation graph. Once we have the base case, we ca
 
 ## Examples
 
-We start with the simplest function: $id(x)$.
+We start with the simplest function: $\mathbf{id}(x)$.
 
-This function takes an input value and returns the same value; hence $id$ -- short for the identity function.
+This function takes an input value and returns the same value; hence $\mathbf{id}$ -- short for the identity function.
 
 It doesn't do anything interesting, but it is an excellent entry point into understanding how to implement differentiation programmatically. Later, we will add more complexity by increasing the number of inputs in two other functions:
 
-- $add(x,y)$
-- $mul(x,y)$
+- $\mathbf{add}(x,y)$
+- $\mathbf{mul}(x,y)$
 
 We will also see that there is a pattern to them. Let's get started.
 
@@ -32,8 +32,9 @@ We will also see that there is a pattern to them. Let's get started.
 
 First, we define our function $f$ and its derivative $f'$:
 $$
+\newcommand{\id}{\mathbf{id}}
 \begin{align*}
-f(x) &= id(x) &= x\\
+f(x) &= \id(x) &= x\\
 f'(x) &= dx &= 1
 \end{align*}
 $$
@@ -49,10 +50,10 @@ Let's take a moment to get familiar with the components of the diagram below.
 </div>
 
 - The components:
-    - the <span style="background:#97BEEE;padding:0.125em;border-radius:0.25em">&nbsp;Node&nbsp;</span>, the <span style="background:#F4C111;padding:0.125em;border-radius:0.25em">&nbsp;Forward&nbsp;</span> chain, the <span style="background:#26A169;padding:0.125em;border-radius:0.25em">&nbsp;Reverse&nbsp;</span> chain
+    - the <span style="background:#97BEEE;padding:0.175em;border-radius:0.25em">Node</span>, the <span style="background:#F4C111;padding:0.175em;border-radius:0.25em">Forward</span> chain, the <span style="background:#26A169;padding:0.175em;border-radius:0.25em">Reverse</span> chain
 - The game rules for constructing the graph:
     - at each node, we define
-        - the forward function to compute $id(x)$
+        - the forward function to compute $\mathbf{id}(x)$
         - the reverse function to compute its derivative
 
 ```python
@@ -71,9 +72,10 @@ class Node:
 
 The binary operator $(+)$ requires 2 parameters. So, we add one more input $y$ in this example. We define our function $f$ and its derivative $f'$:
 $$
+\newcommand{\add}{\mathbf{add}}
 \begin{align*}
-f(x,y) &= add(x,y) &= x + y\\
-f'(x,y) &= d_xf + d_yf &= 1 + 1
+f(x,y) &= \add(x,y) &= x + y\\
+f'(x,y) &= D_xf + D_yf &= 1 + 1
 \end{align*}
 $$
 
@@ -101,11 +103,12 @@ class Node:
 
 ### 3. Mul
 
-Finally, let's look at the example for $mul(x,y)$. This is also a binary operator. We define our function $f$ and its derivative $f'$:
+Finally, let's look at the example for $\mathbf{mul}(x,y)$. This is also a binary operator. We define our function $f$ and its derivative $f'$:
 $$
+\newcommand{\mul}{\mathbf{mul}}
 \begin{align*}
-f(x,y) &= mul(x,y) &= x \times y\\
-f'(x,y) &= d_xf + d_yf &= y + x
+f(x,y) &= \mul(x,y) &= x \times y\\
+f'(x,y) &= D_xf + D_yf &= y + x
 \end{align*}
 $$
 
