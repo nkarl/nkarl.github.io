@@ -221,9 +221,9 @@ There are a couple things to note here in the modified form:
 
 Because we eagerly evaluated all *partial derivatives*, we ended up having to do less work computing the *total derivative* at the end.
 
-Essentially, in the standard chain rule, <span style='background: yellow;color:green'>the evaluation of the total derivative is deferred to the very end</span>. Note that every line (starting from *then*) represents an expansion step. We recursively expand each symbol, finally plug the input $x$ in only at the end to compute the expression. Because of this deferment, we ended up having to perform <strong><em>two branches</em></strong> of computations. We can easily trace this with a computation graph (left as an exercise for the reader -- you can check out the [previous post](/blog/2024-06-04-think-symbolically) for example graphs).
+Essentially, in the standard chain rule, the evaluation of the total derivative is deferred to the very end. Note that every line (starting from *then*) represents an expansion step. We recursively expand each symbol, plugging the input $x$ in only at the end to compute the total derivative. Because of this deferment, we ended up having to perform <strong><em>two branches</em></strong> of computations. This can easily be traced with a computation graph (left as an exercise for the reader -- you can check out the [previous post](/blog/2024-06-04-think-symbolically) for example graphs).
 
-On the other hand, in the modified version, rather than deferring, we use the input $x$ right away and <span style='background:yellow;color:green'>compute the partial derivative at each node</span>. Whenever we evalute a function $f$, we also evaluate its partial derivative $f'$ at the respective symbolic unit. By the time we get to evaluating the total derivative, we will have *already* passed through all partial derivative quantities. The total derivative is collected at the final computation node.
+On the other hand, in the modified version, rather than deferring, we use each input right away. Whenever we evalute a function $f$, we also evaluate its partial derivative $f'$ at the respective symbolic unit. Therefore, by the time we get to evaluating the total derivative, we will have *already* passed through all partial derivative quantities. The total derivative is collected at the final computation node.
 
 ## Summary
 
