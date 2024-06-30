@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"span">;
+
+const props = Astro.props;
+---
+
+<span {...props}>
+  <slot />
+</span>
+<style>
+  span {
+    color: green;
+    text-shadow: 0 0 5px yellow;
+  }
+</style>

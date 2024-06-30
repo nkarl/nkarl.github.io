@@ -1,0 +1,142 @@
+---
+title: Some Notes on ANSI C
+description: I discuss the a few notes I took about ANSI C.
+pubDate: June 30 2024
+---
+
+import { HightLight } from "/src/components/HighLight.astro";
+
+This is going to be a short one.
+
+## RTL Syntax
+
+Take a look at the example below. The first statement is the most popular way to declare immutable objects in C. However, the second statement is the actual legal way to do it.
+
+```c
+//----> <-------------
+  const int x = 0x55e;
+
+//<-------------------
+  int const y = 0x55f;
+```
+
+The intended flow of syntax in ANSI C is Right-To-Left (RTL).
+
+This is actually self-evident in the language. We *read* every C function definition beginning with the code block on the right, then parameters in parentheses, the name of the function, and finally terminating with the return type on the very left. Another example is the conditional statements. The handling logic is the rightmost (often in curly braces), then the condition in parentheses, and finally complete with the `if` keyword. And -- as we have already seen above -- a data object is assigned to some symbol in RTL manner.
+
+Let's go through a few more examples to see why having a consistent RTL flow is beneficial.
+
+### Example 1
+
+```c
+long x = 10000;
+```
+
+It's easier to see the RTL flow when we break down the components and model them into a graph:
+
+![](https://mermaid.ink/svg/pako:eNqdkT2PwjAMhv9K5IWFcuUklhx0YrxbuBEz5IjbRspHlToS5eO_k4I4MdeTLduP_Pq9wDFoAglNVF0rdt_otWK1R1iPDdHzYGkzq4PnojdnksvF54rcV6e0Nr6R5aMU5WJVkptVyzLH-mNcrRAO6PvB_QU7FXd6R_HQ0VSQDb55Z40aRVEU1XUicPNPu4qnxpfWjK3EeCt6mIOj6JTR-cEX9EIgcEuOEGRONdUqWUZAf8ujKnH4HfwRJMdEc4ghNS3IWtk-V6nLN9PWqGyUe42QNhziz9PBh5G3O1oHmUs)
+
+The above statement reads as: <HighLight>the integer value</HighLight> `10000` is assigned to <HighLight>the symbol</HighLight> `x`, which covers <HighLight>an object</HighLight> or a bounded memory space <HighLight>of the type</HighLight> `long` (denoting 64-bit width in physical memory).
+
+This is simple enough. However, it gets confusing when we throw in more semantic specifiers.
+
+### Example 2
+
+```c
+long              x[2] = { 0x55A, 0x55B };
+long const *const y    = x;
+```
+
+Again, we break down and model the syntactic components:
+
+![](https://mermaid.ink/svg/pako:eNqdkT1vgzAQhv_K6ZYskNJILG6C1Kpju7RjnMGND7DkD2RsKZTw32uIGmVmuk89uvfeEc9OEjJsvOha-PrgVoogjhz38wD6MGg6bGpnQ96rX2LP211J5qUTUirbsGIpodiWBZlNNUJxKcvXbAlvMO2fZkrF8cRtP5gfp9eSL8fd6ZEWho7WsrSzzSNrVgx5nlfXlcDDnXaFm8x_uQlbwXwrt5ihIW-EkundI7cAHENLhjiylEqqRdSBI7dTWhUxuO_BnpEFHylD72LTIquF7lMVu3QzvSuRbDP3LkkVnP-8Gbr4Ov0Bvcadug)
+
+![](https://mermaid.ink/svg/pako:eNqtkjFvgzAQhf-KdUukKKQEKYubMHVMl3asO7j4AEv4jIyRSpP89xooFKkb6uY7333SvfeukFmFwKFwsi7Zy0WQkl6-CTj1H6zxXYXnTW7JR43-Qn7YJ0c0j7VUSlPB46Fk8f4Yo9mkn6eHfi0V8C6o6cyHrdaiuiUqs9T4w1rUsP0Hl_wbrraaPLq1vO2S5bsa14IqS8WS1TvJoihKbyuB55l2Y6Obk6sBm7LRlcmdofUjxazJ71wyyT60-jMFwQ4MOiO1Cgm8CmJMgC_RoAAengpz2VZegKB7GJWtt68dZcC9a3EHzrZFCTyXVROqtg7n4pOWIclm7qLS3rrnMeND1O_f5qj6xg)
+
+1. the first statement reads as:
+	- <HighLight>the data space</HighLight> of two hexadecimal values is wrapped under <HighLight>the symbol</HighLight> `x[2]`, which denotes a 2-cell array <HighLight>of the type 64-bit integer</HighLight>.
+2. The second statement reads as:
+	- the data space under the symbol `x` now has <HighLight>another alias in the symbol</HighLight> `y`.
+	- The symbol `y` comes with a new set of constraints:
+		- it is a *non-modifiable* pointer to a *non-modifiable* 64-bit integer object.
+
+What does that mean? Why do we need the second statement?
+
+First, we might be in a situation where we want access to the data space without changing it (viewing or copying). Second, we might repeat this action a few more times, so we want to maintain the same access link.
+
+This situation calls for a way to limit the scope of some actions on the raw data. We accomplished that with these semantic specifiers. The RTL flow makes interpreting the statement straight-forward.
+
+## Function Macros
+
+Now, let's move on to another topic. Consider the following definition of a [ring buffer](https://en.wikipedia.org/wiki/Circular_buffer) structure:
+
+```c
+typedef struct ring_buffer {
+	i32 *const buffer;      // actual operational data space
+	u32        front;
+	u32        back;
+	u32  const capacity;
+} RingBuffer;
+```
+
+This structure is a thin wrapper around the actual data space `buffer`, which is an array used for queuing instructions or events.
+
+In general, being a kind of queue, a ring buffer should be reasonably sized so that it can be deployed on the stack, and thus take advantage of the fast stack performance. For that reason, we constrain the maximum capacity of the ring with the `const` keyword, specifying that *we don't expect its size to change*. We also expect to use the same data space as buffer, so we make its pointer `const`.
+
+Now, if we need to allocate the ring on the heap for some special reasons, we can't. This is exactly because of the constraints we have just defined. By definition, a `malloc` call will map a specified structure over some memory space, which basically means the following: <HighLight>set aside the precise number of bytes</HighLight> equal to the size of the structure, and then <HighLight>align and tag the byte blocks</HighLight> according to each attribute's size. By the time `malloc` completes, the memory space is already set, with all the `const` attributes tagged.
+
+Therefore, doing a heap allocation is breaking the constraints -- we can't do that, unless with some unsafe actions.
+ 
+For experimenting's sake, below is the constructor's code for heap allocation using unsafe actions:
+ 
+```c
+typedef RingBuffer Ring;
+
+Ring *new(u32 size) {
+    Ring *ring               = malloc(sizeof(Ring));
+    i32  *buffer             = malloc(size * sizeof(i32));
+    *(i32 **)ring->buffer    = buffer; // unsafe
+    *(i32 * )&ring->capacity = size;   // unsafe
+    return ring;
+}
+```
+
+The unsafe actions here involve: *performing a type cast to nullify* `const` and then *dereferencing*, in that order, to modify each constant object.
+
+This is a recipe for memory leaks.
+
+The reason is that we have performed two separate memory allocations. The first is for the wrapper structure itself. The second is for the operational buffer. When we call `free` on the ring, all fields inside it will be freed. However, the field `i32 *buffer` is a *pointer*. The pointer itself will be freed -- the address value stored in it will be gone -- but *the object it points to* at another location on the heap *will remain*. The object then becomes orphaned and continued to occupy the system's memory.
+
+This is a tricky situation. We need to `free` exactly many times as we `malloc`.
+
+However, there is a way around it: <HighLight>function macros</HighLight>. Let's look at the macro below, which creates a new ring on the stack.
+
+```c
+#define MAKE_RING(name, size, buffer_ptr)   \
+    Ring name = {                           \
+        .buffer   = buffer_ptr,             \
+        .front    = 0,                      \
+        .back     = 0,                      \
+        .capacity = size }                  \
+
+u32  size = 2;
+i32 *buffer = malloc(size * sizeof(i32));
+MAKE_RING(ring, size, buffer_ptr);
+// now the symbol `ring` is available for use without pointer indirection.
+printf("capacity=%d", ring.capacity);
+// end
+free(buffer);
+```
+We go back to the basics of ring buffer. Recall that it's supposed to have a reasonable size. So, if we have to allocate it on the heap, then we should consider another data structure. That being said -- since we *insist* on having the operational buffer on the heap -- we notice that other than the buffer pointer, all other attributes are point-valued and not iterable structures. They are fix-sized, so they can stay on the stack. Thus, we only need to track the buffer pointer and free it at the end of the lexical scope.
+
+A function macro offers an elegant and pleasant solution for that.
+
+Now stack allocation has been generalized into a reusable constructor macro. There are less heap objects to manage, and thus less opportunities for errors to creep in. We also don't break the `const` strictness, and therefore don't have to perform double indirection on the buffer object, which is harder to read and more error-prone. Overall, it takes up a smaller cognitive footprint compared to the heap constructor code.
+
+## Final Thoughts
+
+I find myself increasingly fascinated by ANSI C.
+
+The more I learn about it, the more it seems to offer a nice balance between freedom and constraints thanks to its semantic simplicity. Following a consistent RTL syntax flow, it becomes straight-forward to interpret the meaning of the code. Because of its minimalistic data model, we also maintain the freedom to access and operate on raw data, while still retaining the power to limit the scopes of actions on said data.
+
+It's simple and yet powerful.
