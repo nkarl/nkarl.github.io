@@ -134,6 +134,8 @@ free(buffer);
 
 Now stack allocation has been generalized into a reusable constructor macro. There are less heap objects to manage, and thus less opportunities for errors to creep in. We also don't break the `const` strictness, and therefore don't have to perform double indirection on the buffer object, which is a local extremum -- it's harder to read and more error-prone. Overall, it takes up a smaller cognitive footprint compared to the heap constructor code.
 
+I leave a link to the complete source code with some tests at the end of the blog. 
+
 ## Final Thoughts
 
 I find myself increasingly fascinated by ANSI C.
@@ -141,3 +143,8 @@ I find myself increasingly fascinated by ANSI C.
 The more I learn about it, the more it seems to offer a nice balance between freedom and constraints thanks to its semantic simplicity. Following a consistent RTL syntax flow, it becomes straight-forward to interpret the meaning of the code. Because of its minimalistic data model, we also maintain the freedom to access and operate on raw data, while still retaining the power to limit the scopes of actions on said data.
 
 It's simple and yet powerful.
+
+## Links
+
+- ring buffer source: https://gist.github.com/nkarl/f3546ff52ab9d98772dbf711f4f73c6a
+
