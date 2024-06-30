@@ -22,7 +22,7 @@ Take a look at the example below. The first statement is the most popular way to
 
 The intended flow of syntax in ANSI C is Right-To-Left (RTL).
 
-This is actually self-evident in the language. We *read* every C function definition beginning with the code block on the right, then parameters in parentheses, the name of the function, and finally terminating with the return type on the very left. Another example is the conditional statements. The handling logic is the rightmost (often in curly braces), then the condition in parentheses, and finally complete with the `if` keyword. And -- as we have already seen above -- a data object is assigned to some symbol in RTL manner.
+This is actually self-evident in the language. We *read* every C function definition beginning with the code block on the right, then parameters in parentheses, the name of the function, and finally terminating with the return type on the very left. Another example is the conditional statements. The handling logic is the rightmost (often in curly braces), then the condition in parentheses, and finally the `if` keyword. And -- as we have already seen above -- a data object is assigned to some symbol in RTL manner.
 
 Let's go through a few more examples to see why having a consistent RTL flow is beneficial.
 
@@ -83,7 +83,7 @@ This structure is a thin wrapper around the actual data space `buffer`, which is
 
 In general, being a kind of queue, a ring buffer should be reasonably sized so that it can be deployed on the stack, and thus take advantage of the fast stack performance. For that reason, we constrain the maximum capacity of the ring with the `const` keyword, specifying that *we don't expect its size to change*. We also expect to use the same data space as buffer, so we make its pointer `const`.
 
-Now, if we need to allocate the ring on the heap for some special reasons, we can't. This is exactly because of the constraints we have just defined. By definition, a `malloc` call will map a specified structure over some memory space, which basically means the following: <HighLight>set aside the precise number of bytes</HighLight> equal to the size of the structure, and then <HighLight>align and tag the byte blocks</HighLight> according to each attribute's size. By the time `malloc` completes, the memory space is already set, with all the `const` attributes tagged.
+Now, if we need to allocate the ring on the heap for some special reasons, we can't. This is exactly because of the constraints we have just defined. By definition, a `malloc` call will map a specified structure over some memory space, which basically means the following: <HighLight>set aside the number of bytes</HighLight> equal to the size of the structure, and then <HighLight>align and tag the byte blocks</HighLight> according to each attribute's size. By the time `malloc` completes, the memory space is already aligned, with all the `const` attributes tagged.
 
 Therefore, doing a heap allocation is breaking the constraints -- we can't do that, unless with some unsafe actions.
  
@@ -127,7 +127,7 @@ printf("capacity=%d", ring.capacity);
 // end
 free(buffer);
 ```
-We go back to the basics of ring buffer. Recall that it's supposed to have a reasonable size. So, if we have to allocate it on the heap, then we should consider another data structure. That being said -- since we *insist* on having the operational buffer on the heap -- we notice that other than the buffer pointer, all other attributes are point-valued and not iterable structures. They are fix-sized, so they can stay on the stack. Thus, we only need to track the buffer pointer and free it at the end of the lexical scope.
+We go back to the basics of ring buffer. Recall that it's supposed to have a reasonable size. So, if we have to allocate it on the heap, then we should consider another data structure. That being said -- since we *insist* on having the operational buffer on the heap -- we notice that other than the buffer pointer, all other attributes are point-valued and not iterable structures. They are alls small and fix-sized, so they can stay on the stack. Therefore, we only need to track the buffer pointer and free it at the end of the lexical scope.
 
 A function macro offers an elegant and pleasant solution for that.
 
