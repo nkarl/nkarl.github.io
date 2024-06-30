@@ -107,9 +107,13 @@ This is a recipe for memory leaks.
 
 The reason is that we have performed two separate memory allocations. The first is for the wrapper structure itself. The second is for the operational buffer. When we call `free` on the ring, all fields inside it will be freed. However, the field `i32 *buffer` is a *pointer*. The pointer itself will be freed -- the address value stored in it will be gone -- but *the object it points to* at another location on the heap *will remain*. The object then becomes orphaned and continued to occupy the system's memory.
 
-This is a tricky situation. We need to `free` exactly many times as we `malloc`.
+This is a tricky situation. We need to `free` exactly as many times as we `malloc`.
 
-However, there is a way around it: <HighLight>function macros</HighLight>. Let's look at the macro below, which creates a new ring on the stack.
+There is a way around it: <HighLight>function macros</HighLight>.
+
+We go back to the basics of ring buffer. Recall that it's supposed to have a reasonable size. So, if we really have to allocate it on the heap, then we should probably consider another data structure. That being said -- since we *insist* on having the operational buffer on the heap -- we notice that other than the buffer pointer, all other attributes are point-valued and not iterable structures. They are small and fix-sized, so they can stay on the stack. We only need to track the buffer pointer and free it at the end of the lexical scope.
+
+A function macro offers an elegant solution to that.
 
 ```c
 #define MAKE_RING(name, size, buffer_ptr)   \
@@ -127,11 +131,8 @@ printf("capacity=%d", ring.capacity);
 // end
 free(buffer);
 ```
-We go back to the basics of ring buffer. Recall that it's supposed to have a reasonable size. So, if we have to allocate it on the heap, then we should consider another data structure. That being said -- since we *insist* on having the operational buffer on the heap -- we notice that other than the buffer pointer, all other attributes are point-valued and not iterable structures. They are alls small and fix-sized, so they can stay on the stack. Therefore, we only need to track the buffer pointer and free it at the end of the lexical scope.
 
-A function macro offers an elegant and pleasant solution for that.
-
-Now stack allocation has been generalized into a reusable constructor macro. There are less heap objects to manage, and thus less opportunities for errors to creep in. We also don't break the `const` strictness, and therefore don't have to perform double indirection on the buffer object, which is harder to read and more error-prone. Overall, it takes up a smaller cognitive footprint compared to the heap constructor code.
+Now stack allocation has been generalized into a reusable constructor macro. There are less heap objects to manage, and thus less opportunities for errors to creep in. We also don't break the `const` strictness, and therefore don't have to perform double indirection on the buffer object, which is a local extremum -- it's harder to read and more error-prone. Overall, it takes up a smaller cognitive footprint compared to the heap constructor code.
 
 ## Final Thoughts
 
