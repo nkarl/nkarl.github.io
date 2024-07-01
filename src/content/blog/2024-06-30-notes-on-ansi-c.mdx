@@ -101,7 +101,7 @@ Ring *new(u32 size) {
 }
 ```
 
-The unsafe actions here involve: *performing a type cast to nullify* `const` and then *dereferencing*, in that order, to modify each constant object.
+The unsafe actions here involve: *performing a type cast to nullify* `const` and then *dereferencing*, in that order, to modify each constant object. Unsafe because we broke the promise of `const`.
 
 This is a recipe for memory leaks.
 
