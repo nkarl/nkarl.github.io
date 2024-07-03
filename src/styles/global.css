@@ -115,12 +115,40 @@ input {
 
 table {
   width: 100%;
+  margin-bottom: 4em;
 }
 
 img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  width:90%;
+}
+
+.data-table {
+  margin-left:auto;
+  margin-right:auto;
+  border: 2px solid #fff;
+  border-collapse: collapse;
+  font-size: 1.25em;
+}
+
+.data-table th, .data-table td{
+  border: 2px solid #fff;
+  border-radius: 0.35em;
+}
+
+.data-table th {
+  padding-left: 1em;
+  background:#97BEEE;
+}
+
+.data-table td {
+  padding-left: 2em;
+  background:lightblue;
 }
 
 /* FIX: temporary fix to code block */
@@ -156,10 +184,12 @@ blockquote {
   padding: 0.25em 1.5em; /*0 0 0 20px;*/
   margin: 0 2em;
   margin-bottom: 4em;
-  font-size: 1.125em; /*1.333em;*/
-  color: green;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  animation: blockquote-glow 4s ease-in-out infinite alternate;
+  font-size: 1.025em; /*1.333em;*/
+  color: darkgreen;
+  /*background: lightyellow;*/
+  background: linear-gradient(lightblue, #fff) no-repeat;
+  animation: blockquote-glow 7s ease-in-out infinite alternate;
+  text-shadow: 0 0 1px yellow;
 }
 
 .blockquote-glow {
@@ -169,11 +199,13 @@ blockquote {
 
 @-webkit-keyframes blockquote-glow {
   from {
-    border-left: 8px solid gold;/*var(--accent);*/
+    /*border-left: 8px solid gold;[>var(--accent);<]*/
+    border-left: 8px solid lightsteelblue;/*var(--accent);*/
   }
 
   to {
-    border-left: 8px solid goldenrod;/*var(--accent);*/
+    /*border-left: 8px solid goldenrod;[>var(--accent);<]*/
+    border-left: 8px solid steelblue;/*var(--accent);*/
   }
 }
 
