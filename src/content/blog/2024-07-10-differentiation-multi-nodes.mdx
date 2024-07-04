@@ -1,0 +1,203 @@
+---
+title: (WIP) Differentiable Programming (2)
+description: Let's differentiate a multi-node function.
+pubDate: July 10 2024
+---
+In this post, we will work out the differenention process of a very simple function.
+
+We will use the simplest function $\mathbf{id}$ to drill down the basics.
+
+As seen [previously](/blog/2024-06-17-differentiation-single-node#examples), this function doesn't do anything other than returning the exact input it is given. However, precisely because of this trivial behavior, we can focus on the keys of implementation rather than getting bogged down by the rules of math.
+
+## Set Up
+
+We define our functional $\mathbf{F}$ and its derivative:
+$$
+\newcommand{\id}{\mathbf{id}}
+\begin{align*}
+\text{given}&:&
+f(x) &= x = \id(x) \\
+&& f'(x) &= 1
+\end{align*}
+$$
+$$
+\newcommand{\id}{\mathbf{id}}
+\begin{align*}
+\mathbf{F}(x)
+	&= \id(\id(\id(x)))
+	= \id\circ\id\circ\id (x)\\
+\mathbf{D}(x)
+    &= 1
+\end{align*}
+$$
+
+Next, we model the computation graph. Because the functional $\mathbf{F}$ takes a single-variable input, the evaluation process maps nicely to a linked list.
+
+<img
+    src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggUkxcbkZbXCI8ZW0gc3R5bGU9J2NvbG9yOmJsdWU7Ym9yZGVyLWJvdHRvbTpzb2xpZCBibGFjayAxcHgnPm91dHB1dDwvZW0-PGJyPjxzdHJvbmcgc3R5bGU9J2ZvbnQtd2VpZ2h0OjkwMDtmb250LXNpemU6MS4yNXJlbSc-Rjwvc3Ryb25nPlwiXVxuaWQxW1wiPGRpdiBzdHlsZT0nZm9udC1zaXplOjEuMjVyZW0nPmlkPHN1Yj4xPC9zdWI-PC9kaXY-XCJdXG5pZDJbXCI8ZGl2IHN0eWxlPSdmb250LXNpemU6MS4yNXJlbSc-aWQ8c3ViPjI8L3N1Yj48L2Rpdj5cIl1cbmlkM1tcIjxkaXYgc3R5bGU9J2ZvbnQtc2l6ZToxLjI1cmVtJz5pZDxzdWI-Mzwvc3ViPjwvZGl2PlwiXVxueFtcIjxlbSBzdHlsZT0nY29sb3I6cmVkO2JvcmRlci1ib3R0b206c29saWQgYmxhY2sgMXB4Jz5pbnB1dDwvZW0-PGJyPjxlbSBzdHlsZT0nZm9udC1zaXplOjEuMjVyZW0nPng8L2VtPlwiXVxuaWQzIC0tPiBGXG5pZDIgLS0-IGlkM1xuaWQxIC0tPiBpZDJcbnggLS0-IGlkMVxuIiwibWVybWFpZCI6eyJ0aGVtZSI6ImRlZmF1bHQifSwidXBkYXRlRWRpdG9yIjpmYWxzZX0"
+    style="width:80%"
+    />
+
+## Modeling
+
+Now, we map and connect the internal of the nodes together. Remember [from the last post](/blog/2024-06-17-differentiation-single-node#1-id) that a node structure hosts two chain links:
+
+1. forward: nothing to compute so we simply pass on the symbol $x$
+2. reverse: computing is trivial (the $\mathbf{unit_x}$ resolves to 1) -- we just pass on 1
+
+This time, we implement some working code. Now, a node also takes a function to be used in the forward pass.
+
+```python
+@dataclass
+class Node:
+    data: float
+    func: lambda: None
+
+    def forward(self, x: Node):
+        return self.func(self.data)
+
+    def reverse(self, d):
+        return 1  # for this example, the input `d` doesn't matter
+
+# the identity function
+def idFunc(x: float):
+    return x
+```
+
+#### 1. Evaluate Path
+
+<img
+   src="https://mermaid.ink/svg/pako:eNqNkrFuwyAQhl8FsWSJm2CrQyn1VGVql3Y0HbA526gGLAyt0yjvXmoriqxEaiY-pP8-TtwdcGUlYIobJ_oWvb1wsysYaDT4fQdPq8p21tGyC_BYWifBJaX13mo62E5JVHai-kSkH1e5Db4Pnm1A56x0ORu8s6Y5eWprfPINqmk9fdhuH6f7oH6Akrv03oFe5Tu2mWvyD26GUM4dKUkKJtXXQrQsVJLFeE5ifTzYJqb_FNzXpBgncKQgEcDIhTm90ZxemtOTOb1qzm40Z5fm7GTOzubxciQO5H8TUWYxkLPhSj_jlIvv1RlKkhztIqUT1VlEMmMaW5mJ4DXW4LRQMi7PgRuEOPYtaOCYRpRQi9B5jrk5xqgI3r7vTYWpdwHW2NnQtJjWohviLfRSeHhWIn6fPkVAKm_d67yd05IefwE81-vf"
+/>
+
+#### 2. Differentiate Path
+
+<img
+    src="https://mermaid.ink/svg/pako:eNqNkjFvwjAQhf-K5YWFFBzUoSZkytgu7Rh3cLhLYjW2I8duoYj_XhNoVQRqmfxsvfv89HQ7uraAlNPGyb4lj8_CQJmhJoPfdriarG1nHXcIy8o6QJdU1nur-WA7BaTq5PqNsH4zyZXpg89mqPOscvkvQm2NTwb1iZzdpfcO9SQHwleEjeZXYYZQHT9XwMoM1PsfkwqyaM_j7OHIZtF9QAhfs3IzCsdKFgUaOCOnN5LTS3L6TU6vkhc3kheX5MWJDCdqcdl81QX8r3ob_Fn3g3fWNGeJPlA1recP8_nySsIiRhtnDrkcI0mSkyKqdFSOxZ04qpROqUanpYK4MjthCBHUt6hRUB4lYC1D5wUVZh-tMnj7sjVryr0LOKXOhqalvJbdEG-hB-mxUDI2qX9eEZS37um4lONu7r8A1kjpAg"
+    style="width:75%"
+/>
+
+## Implementation
+
+We assume that the expression is already parsed and ordered into the following list of operators:
+
+```python
+id1 = Node(1, idFunc, "id")
+id2 = Node(id1.data, idFunc, "id")
+id3 = Node(id2.data, idFunc, "id")
+
+expression = [id1, id2, id3]
+```
+
+Next, we define the accumulator functions to traverse the list and evaluate $\mathbf{F}$ as well as its derivative $\mathbf{D}$:
+
+```python
+def evaluate(graph: list[Node]):
+    y = None
+    for each in graph:
+        y = each.forward()
+    return y
+
+def differentiate(graph: list[Node]):
+    _, *rest = reversed(graph)
+    d = 1
+    for each in rest:
+        d = each.reverse(d)
+    return d
+```
+
+Finally, a simple sanity test:
+
+```python
+y  = assert(1 == evaluate(expression))
+dy = assert(1 == differentiate(expression))
+```
+
+### Mathing the Math
+
+Let's take a moment and think about where $d$ comes from and why it is needed. Otherwise, we wouldn't be able to make full audit of more complex graphs.
+
+What actually happens is that every node is its own symbolic $\mathbf{unit}$ -- [it can be used as is or unfolded into its constituents](/blog/2024-06-26-think-symbolically-2#symbolic-unit). In other words, a node can either resolve to $\mathbf{unit}$ or its local derivative. I rewrote the definition, changing only the symbols to make clear that each is a scalar quantity:
+
+$$
+\begin{align*}
+D_z\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\quad,\quad\text{given that }\mathbf{F}=z\\\\\
+D_y\mathbf{F} &=
+	D_zF
+	\cdot\mathbf{\color{lightgray}unit_{y}}\\\\
+D_x\mathbf{F} &=
+	D_zF \cdot D_yF
+	\cdot\mathbf{\color{lightgray}unit_{x}}\\\\
+\vdots\\\\
+D_a\mathbf{F} &=
+	D_zF \cdot D_yF
+	\cdot\quad\dots\quad
+	\cdot D_ab
+	\cdot\mathbf{\color{lightgray}unit_{a}}\\\\
+\end{align*}
+$$
+
+And because they are scalar quantities we can fold them together as a single quantity $d$. The symbol $d$ consumes the local derivative at each node, and then has its new state propagated to the next node:
+
+$$
+\begin{align*}
+D_z\mathbf{F} &=\mathbf{\color{lightgray}unit_z}\\\\
+D_y\mathbf{F} &=
+	\underbrace{D_zF}_d
+	\cdot\mathbf{\color{lightgray}unit_{y}}\\\\
+D_x\mathbf{F} &=
+	\underbrace{d \cdot D_yF}_d
+	\cdot\mathbf{\color{lightgray}unit_{x}}\\\\
+\vdots\\\\
+D_a\mathbf{F} &=
+	\underbrace{d \cdot D_ab}_d
+	\cdot\mathbf{\color{lightgray}unit_{a}}\\\\
+\end{align*}
+$$
+
+At the final node $b$ -- the basis of input(s) is $\mathbf{a}$:
+$$
+\begin{align*}
+D_a\mathbf{F}
+&=&
+\underbrace{
+	D_zF \cdot D_yF
+	\cdot\quad\dots\quad
+}_\text{reducer symbol $d$}&
+	&\cdot& D_ab
+	\cdot\mathbf{\color{lightgray}unit_{a}} \\\\
+&=&
+d& &\cdot& D_ab\cdot {\color{lightgray}\mathbf{unit_a}}
+\end{align*}
+$$
+
+Simply put, at the very first node $z$, the derivative resolves to $\mathbf{unit_z}$ or 1 -- we treat this subgraph as a unit of computation. From there, we simply yield 1 for every $\mathbf{id}$ operator, which means we could skip the list and just use the last node. It is possible to hand wave $d$ away for this example; however in more complex operator nodes $d$ might no longer yield just 1, like in the example below:
+
+$$
+\begin{align*}
+\text{given}&:&
+F(x,y) &= x + y\\
+&& D_x(x,y) &= 1\\
+&& D_y(x,y) &= 1\\\\
+\text{then}&:&
+\underbrace{F'(x,y)}_d&= D_x + D_y\\
+&& d&= 2\\
+\end{align*}
+$$
+
+Now we understand where $d$ comes from -- and why we must collect, compute and pass on its new state. On the other hand, a node's total derivative is just the sum of its partial derivatives. So, we can be sure that $d$ is <u>always</u> a scalar quantity.
+
+## Summary
+
+In this post, we have worked out the process of differentiating over a simple function. This process operates on top of a computation graph (in this example, a simple linked list). 
+
+We will see that, as a function grows in complexity, we naturally need to track incoming input into each node. This is required in order to compute the local derivatives and ultimately propagate them through the graph to get the *total derivative*.
+
+In the next post, we will apply this process to functions of multiple inputs. 
+
+Until next time.
+
+## Links
+
+- code: https://gist.github.com/nkarl/715abbf5a645070d0fc40995d24f1943
+
