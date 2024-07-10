@@ -187,9 +187,10 @@ blockquote {
   font-size: 1.025em; /*1.333em;*/
   color: darkgreen;
   /*background: lightyellow;*/
-  background: linear-gradient(lightblue, #fff) no-repeat;
+  background: white;/*linear-gradient(white, #fff) no-repeat;*/
   animation: blockquote-glow 7s ease-in-out infinite alternate;
   text-shadow: 0 0 1px yellow;
+  font-style: italic;
 }
 
 .blockquote-glow {
