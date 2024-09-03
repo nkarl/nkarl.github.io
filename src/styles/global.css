@@ -18,11 +18,21 @@
 }
 
 @font-face {
-  font-family: 'Palatino Lino Type'
+  font-family:
+    'CaskaydiaCove Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
+    /*'FiraCode Nerd Font'*/
+    /*'Lilex Nerd Font'*/
+    /*'Palatino Lino Type'*/
     /*'Atkinson'*/
   ;
-  src: url('/fonts/palatinolinotype_roman.ttf') format('ttf')
-    /* url('/fonts/atkinson-regular.woff') format('woff')*/
+  src:
+    url('/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf') format('truetype')
+    /*url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf') format('truetype')*/
+    /*url('/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf') format('truetype')*/
+    /*url('/fonts/Lilex/LilexNerdFont-Regular.ttf') format('truetype')*/
+    /*url('/fonts/palatinolinotype_roman.ttf') format('truetype')*/
+    /*url('/fonts/atkinson-regular.woff') format('woff')*/
   ;
   font-weight: 400;
   font-style: normal;
@@ -30,11 +40,21 @@
 }
 
 @font-face {
-  font-family: 'Palatino Lino Type'
+  font-family:
+    'CaskaydiaCove Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
+    /*'FiraCode Nerd Font'*/
+    /*'Lilex Nerd Font'*/
+    /*'Palatino Lino Type'*/
     /*'Atkinson'*/
   ;
-  src: url('/fonts/palatinolinotype_bold.ttf') format('ttf')
-    /*/fonts/atkinson-bold.woff') format('woff')*/
+  src:
+    url('/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Bold.ttf') format('truetype')
+    /*url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Bold.ttf') format('truetype')*/
+    /*url('/fonts/FiraCode/FiraCodeNerdFont-Bold.ttf') format('truetype')*/
+    /*url('/fonts/Lilex/LilexNerdFont-Bold.ttf') format('truetype')*/
+    /*url('/fonts/palatinolinotype_bold.ttf') format('truetype')*/
+    /*url('/fonts/atkinson-bold.woff') format('woff')*/
   ;
   font-weight: 700;
   font-style: normal;
@@ -42,8 +62,13 @@
 }
 
 body {
-  font-family: 'Palatino Lino Type'
-    /* , sans-serif */
+  font-family:
+    'CaskaydiaCove Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
+    /*'FiraCode Nerd Font'*/
+    /*'Lilex Nerd Font'*/
+    /*'Palatino Lino Type'*/
+    /*'sans-serif' */
   ;
   margin: 0;
   padding: 0;
@@ -64,24 +89,50 @@ main {
   padding: 3em 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0 0 0.5rem 0;
-  padding-top: 1em; padding-bottom: 0.5em;
+  padding-top: 1em;
+  padding-bottom: 0.5em;
   color: rgb(var(--black));
   line-height: 1.2;
 }
 
-h1 { font-size: 3.000em/*3.052em*/; }
+h1 {
+  font-size: 3.000em
+    /*3.052em*/
+  ;
+}
 
-h2 { font-size: 2.500em/*2.441em*/; }
+h2 {
+  font-size: 2.500em
+    /*2.441em*/
+  ;
+}
 
-h3 { font-size: 2.000em/*1.953em*/; }
+h3 {
+  font-size: 2.000em
+    /*1.953em*/
+  ;
+}
 
-h4 { font-size: 1.500em/*1.563em*/; }
+h4 {
+  font-size: 1.500em
+    /*1.563em*/
+  ;
+}
 
-h5 { font-size: 1.250em; }
+h5 {
+  font-size: 1.250em;
+}
 
-h6 { font-size: 1.125em; }
+h6 {
+  font-size: 1.125em;
+}
 
 strong,
 b {
@@ -122,33 +173,34 @@ img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  margin-left:auto;
-  margin-right:auto;
-  display:block;
-  width:90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 90%;
 }
 
 .data-table {
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   border: 2px solid #fff;
   border-collapse: collapse;
   font-size: 1.25em;
 }
 
-.data-table th, .data-table td{
+.data-table th,
+.data-table td {
   border: 2px solid #fff;
   border-radius: 0.35em;
 }
 
 .data-table th {
   padding-left: 1em;
-  background:#97BEEE;
+  background: #97BEEE;
 }
 
 .data-table td {
   padding-left: 2em;
-  background:lightblue;
+  background: lightblue;
 }
 
 /* FIX: temporary fix to code block */
@@ -172,22 +224,28 @@ pre {
 }
 
 pre>code {
-/*display: unset;*/
-color:unset;
-background-color: unset/*rgb(var(--gray-light))*/;
-font-size: 14px;
+  /*display: unset;*/
+  color: unset;
+  background-color: unset
+    /*rgb(var(--gray-light))*/
+  ;
+  font-size: 14px;
 }
 
 blockquote {
   border-radius: 0 0.75em;
-  border-left: 8px solid goldenrod;/*var(--accent);*/
-  padding: 0.25em 1.5em; /*0 0 0 20px;*/
+  border-left: 8px solid goldenrod;
+  /*var(--accent);*/
+  padding: 0.25em 1.5em;
+  /*0 0 0 20px;*/
   margin: 0 2em;
   margin-bottom: 4em;
-  font-size: 1.025em; /*1.333em;*/
+  font-size: 1.025em;
+  /*1.333em;*/
   color: darkgreen;
   /*background: lightyellow;*/
-  background: white;/*linear-gradient(white, #fff) no-repeat;*/
+  background: white;
+  /*linear-gradient(white, #fff) no-repeat;*/
   animation: blockquote-glow 7s ease-in-out infinite alternate;
   text-shadow: 0 0 1px yellow;
   font-style: italic;
@@ -201,12 +259,14 @@ blockquote {
 @-webkit-keyframes blockquote-glow {
   from {
     /*border-left: 8px solid gold;[>var(--accent);<]*/
-    border-left: 8px solid lightsteelblue;/*var(--accent);*/
+    border-left: 8px solid lightsteelblue;
+    /*var(--accent);*/
   }
 
   to {
     /*border-left: 8px solid goldenrod;[>var(--accent);<]*/
-    border-left: 8px solid steelblue;/*var(--accent);*/
+    border-left: 8px solid steelblue;
+    /*var(--accent);*/
   }
 }
 
@@ -248,15 +308,16 @@ hr {
 }
 
 .mermaid {
-  max-width:100%;
+  max-width: 100%;
   overflow: scroll;
 }
 
 svg {
-  display:block;
-  margin:auto;
+  display: block;
+  margin: auto;
   /*max-width: 110%;*/
 }
+
 body {
   --file-line-width: 1000px;
 }
