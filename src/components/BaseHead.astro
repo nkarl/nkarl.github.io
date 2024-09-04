@@ -13,6 +13,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description /*image = '/blog-placeholder-1.jpg'*/ } =
   Astro.props;
+
+const preloadFontRegular = '/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf'
+const preloadFontBold = '/fonts/JetBrainsMono/JetBrainsMono-Bold.ttf'
 ---
 
 <!-- Global Metadata -->
@@ -24,14 +27,14 @@ const { title, description /*image = '/blog-placeholder-1.jpg'*/ } =
 <!-- Font preloads -->
 <link
   rel="preload"
-  href="/fonts/Lilex/LilexNerdFont-Regular.ttf"
+  href={preloadFontRegular}
   as="font"
   type="font/ttf"
   crossorigin
 />
 <link
   rel="preload"
-  href="/fonts/Lilex/LilexNerdFont-Bold.ttf"
+  href={preloadFontBold}
   as="font"
   type="font/ttf"
   crossorigin
