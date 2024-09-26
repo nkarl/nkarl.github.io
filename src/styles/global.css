@@ -20,18 +20,18 @@
 @font-face {
   font-family:
     /*'CaskaydiaCove Nerd Font'*/
-    'JetBrainsMono Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
     /*'FiraCode Nerd Font'*/
     /*'Lilex Nerd Font'*/
-    /*'Palatino Lino Type'*/
+    'Palatino Lino Type'
     /*'Atkinson'*/
   ;
   src:
     /*url('/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Regular.ttf') format('truetype')*/
-    url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf') format('truetype')
+    /*url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Regular.ttf') format('truetype')*/
     /*url('/fonts/FiraCode/FiraCodeNerdFont-Regular.ttf') format('truetype')*/
     /*url('/fonts/Lilex/LilexNerdFont-Regular.ttf') format('truetype')*/
-    /*url('/fonts/palatinolinotype_roman.ttf') format('truetype')*/
+    url('/fonts/palatinolinotype_roman.ttf') format('truetype')
     /*url('/fonts/atkinson-regular.woff') format('woff')*/
   ;
   font-weight: 400;
@@ -42,18 +42,18 @@
 @font-face {
   font-family:
     /*'CaskaydiaCove Nerd Font'*/
-    'JetBrainsMono Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
     /*'FiraCode Nerd Font'*/
     /*'Lilex Nerd Font'*/
-    /*'Palatino Lino Type'*/
+    'Palatino Lino Type'
     /*'Atkinson'*/
   ;
   src:
     /*url('/fonts/CascadiaCode/CaskaydiaCoveNerdFont-Bold.ttf') format('truetype')*/
-    url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Bold.ttf') format('truetype')
+    /*url('/fonts/JetBrainsMono/JetBrainsMonoNerdFont-Bold.ttf') format('truetype')*/
     /*url('/fonts/FiraCode/FiraCodeNerdFont-Bold.ttf') format('truetype')*/
     /*url('/fonts/Lilex/LilexNerdFont-Bold.ttf') format('truetype')*/
-    /*url('/fonts/palatinolinotype_bold.ttf') format('truetype')*/
+    url('/fonts/palatinolinotype_bold.ttf') format('truetype')
     /*url('/fonts/atkinson-bold.woff') format('woff')*/
   ;
   font-weight: 700;
@@ -64,10 +64,10 @@
 body {
   font-family:
     /*'CaskaydiaCove Nerd Font'*/
-    'JetBrainsMono Nerd Font'
+    /*'JetBrainsMono Nerd Font'*/
     /*'FiraCode Nerd Font'*/
     /*'Lilex Nerd Font'*/
-    /*'Palatino Lino Type'*/
+    'Palatino Lino Type'
     /*'sans-serif' */
   ;
   margin: 0;

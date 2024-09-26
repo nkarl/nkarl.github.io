@@ -90,9 +90,11 @@ const posts = (await getCollection('blog')).sort(
     <main>
       <section>
         <ul>
-          { posts && posts.map(post => (
+          { posts && posts.map(post => {
+            const slug = `/blog/${post.slug}/`;
+            return (
               <li>
-                <a href={`/blog/${post.slug}/`}>
+                <a href={slug}>
                   <!--
                   <img width={720} height={360} src={post.data.heroImage} alt="" />
                   -->
@@ -102,7 +104,8 @@ const posts = (await getCollection('blog')).sort(
                   </p>
                 </a>
               </li>
-            ))
+              );
+            })
           }
           { !posts && (
               <li>
