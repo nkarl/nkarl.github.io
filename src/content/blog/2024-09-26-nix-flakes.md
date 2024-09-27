@@ -80,7 +80,8 @@ Nix Flake is a type of manifest designed for this step. Nix as a language more g
 In a flake, you specify both the *inputs* and *outputs* for sourcing and building your dependencies, like a mathematical equation.
 
 - In the `inputs` attribute, you define where to source your packages.
-- In the `outputs` attribute, you have a few options. You can define a simple attribute set as expectation for the build output, just like `inputs`. Furthermore, you can also define various actions that ultimately creates the expected attribute set. This is possible due to Nix's design.
+- In the `outputs` attribute, you have a few options. You can define a simple attribute set as expectation for the build output, just like `inputs`. Not only that, you also have the power to define various actions that ultimately creates the expected attribute set. This is possible due to Nix's design.
+   - For example, you can embed program logic such as a custom parser for other manifests. I know about this because [I reported a bug in the parser from IOHK's HaskellNix template](https://github.com/input-output-hk/haskell.nix/issues/2252#issue-2537768257).
 
 > You can look at every Nix file as a [mathematical object](https://ncatlab.org/nlab/show/object) (a high-ordered function) that can accept some arguments and produces some result that can be passed on to other mathematical objects (Nix files).
 
