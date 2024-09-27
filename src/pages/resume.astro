@@ -2,7 +2,7 @@
 import Layout from "../layouts/BlogPost.astro";
 ---
 
-<Layout title="Charles Lambert Nguyen" pubDate={new Date("April 21 2024")}>
+<Layout title="Charles Lambert Nguyen" pubDate={new Date("Sep 27 2024")}>
   <div id="fullname-contact-info">
     <ul id="contact-info">
       <li>
@@ -21,19 +21,21 @@ import Layout from "../layouts/BlogPost.astro";
     <h3>Summary</h3>
     <ul>
       <p>
-        I have 2 year of experience with decent exposure to most layers of the
-        development stack — from user-facing to back-end, including some CI/CD.
-        At the moment, my biggest focus is to improve my understanding of type
-        safety, data and actions and effects — ultimately the flow of
-        information in a system and its integrity thereof.
+        I have 2 year of experience of full stack web development, having worked
+        with most layers — from user-facing to back-end and CI/CD.
       </p>
       <p>
-        I am open to new positions/contracts/gigs in any layer of the web stack
-        (preferably with a SQL database). I also welcome any opportunities that
-        use a functional language within or without the Haskell-family,
+        At the moment I focus on the Cardano blockchain ecosystem, which in my
+        opinion has the best transaction model: eUTxO. I aim to develop Plutus
+        smart contracts and deploy dApps that can help solve the economic
+        identity problem for many.
+      </p>
+      <p>
+        I am open to long and short-term contracts at any layer of the web stack
+        (preferably with a SQL database). I also welcome opportunities that let
+        me use a functional language in-/outside of the Haskell-family,
         including Scala or OCaml.
       </p>
-      <p></p>
     </ul>
   </div>
 
@@ -44,23 +46,34 @@ import Layout from "../layouts/BlogPost.astro";
         <tr id="skills-languages">
           <th>Languages</th>
           <td>
-            : GNU C/C++, Java, C#, Python, TypeScript, PureScript, Haskell, SQL
+            : GNU C/C++, Java, C#, Python, JavaScript, PureScript, Haskell, SQL
           </td>
         </tr>
         <tr id="skills-tools">
           <th>Tools</th>
           <td>
-            : GNU Make, SpringBoot, Maven, .NET, Node.js, React, Svelte,
-            Tailwind
+            : GNU Make, SpringBoot, Maven, .NET, Node.js, React, SolidJS,
+            Svelte, Tailwind
           </td>
         </tr>
         <tr id="skills-Others">
           <th>Others</th>
-          <td> : Linux, NeoVim, IntelliJ, VScode, Bash, Docker and others </td>
+          <td>
+            : Linux, NeoVim, IntelliJ, VScode, Docker, Nix, Bash and others
+          </td>
         </tr>
       </table>
-      <p></p>
     </ul>
+  </div>
+
+  <div id="certificates">
+    <h3>Technical Certification and Adoption</h3>
+    <ul>
+      <li>(WIP) Microsoft Azure Fundamentals AZ-900</li>
+      <li>(WIP) CompTIA Network+ N10-009</li>
+      <li>(WIP) Swagger/OpenAPI v3</li>
+    </ul>
+    <p></p>
   </div>
 
   <div id="education">
@@ -77,41 +90,79 @@ import Layout from "../layouts/BlogPost.astro";
     <h3>Professional Experience</h3>
     <!-- experience list -->
     <ul>
-      <!-- experience 1 -->
+      <!-- experience 4 -->
       <li id="exp1">
         <div class="exp-date">
           <p>
             <strong>
-              Junior Software Engineer -
-              <a href="https://techsphere.app/">techsphere.app</a>,
+              Independent Developer & <a href="https://github.com/nkarl"
+                >OSS Contributor</a
+              >
             </strong>
-            <em>Remote</em>
+          </p>
+          <p>Jan 2024 - present</p>
+        </div>
+        <div>
+          <p>
+            I continue to write code and contribute to open source and community
+            development projects. Below is a (tentative) list of projects that
+            interest me:
+            <ul>
+              <li>
+                The Cardano blockchain:
+                <a href="https://www.intersectmbo.org/">Intersect</a>
+              </li>
+              <li>
+                TinyGrad:
+                <a href="https://github.com/tinygrad/tinygrad"
+                  >tinygrad/tinygrad</a
+                >
+              </li>
+              <li>
+                Ladybird Browser:
+                <a href="https://github.com/LadybirdBrowser/ladybird"
+                  >LadyirdBrowser/ladybird</a
+                >
+              </li>
+            </ul>
+          </p>
+          <p></p>
+        </div>
+      </li>
+
+      <!-- experience 3 -->
+      <li id="exp1">
+        <div class="exp-date">
+          <p>
+            <strong>
+              Software Engineer -
+              <a href="https://techsphere.app/">TechSphere</a>
+            </strong>
           </p>
           <p>Jun 2023 - Jan 2024</p>
         </div>
         <div>
           <p>
-            I worked with the engineering team to rebuild an existing website
-            previously written in React TypeScript and deployed with Google
-            Cloud Functions. Our work was done using the TypeScript, Java, NoSQL
-            stack. We developed and deployed on GCP.
+            I helped rebuilding an existing web application that connects and
+            facilitates mentorship booking. Our work was done using the
+            TypeScript, Java, NoSQL stack. We developed and deployed on GCP.
           </p>
           <p>
             In the first 3 months we worked to boot up and stabilize the Java
-            back-end. We separated the logic into a proper Java SpringBoot
-            back-end with ORM for the Firebase database.
+            back-end. We separated the core booking logic into a proper Java
+            SpringBoot back-end with ORM for the Firebase database.
             <strong>
               <em>
                 This let us identify and remove a bottleneck, which resulted in
                 a 4s reduction in load time.
               </em>
             </strong>
-            In the final 3 months, I contributed to the next phase of the SDLC with
-            outreach interviews to collect and analyze user feedback.
           </p>
           <p>
-            Near the end of my tenure, I started some preliminary work on
-            refactoring the front-end.
+            In the final 3 months, I contributed to the next phase of the SDLC
+            with outreach interviews to collect and analyze user feedback. Near
+            the end of my time there, I started working on refactoring and
+            adding Jest unit tests to the React front-end.
           </p>
         </div>
       </li>
@@ -147,7 +198,7 @@ import Layout from "../layouts/BlogPost.astro";
         </div>
       </li>
 
-      <!-- experience 3 -->
+      <!-- experience 1 -->
       <li id="exp3">
         <div class="exp-date">
           <p>
