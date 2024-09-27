@@ -209,7 +209,7 @@ error: flake 'git+file://${PATH_TO}/haskell-project' does not provide attribute 
 
 What happened there?
 
-The error message says that the function `mkShell` produced an output that does not contain the attribute `devShells.x86_64-linux.default`. This violated functional purity.
+The error message says that the function `mkShell` produced an output that does not contain the attribute `devShells.x86_64-linux.default`. This violated functional purity, because in the [schema](https://nixos.wiki/wiki/Flakes#Output_schema), `outputs` requires explicitly that attribute.
 
 We need to specify the system we are building on. I am using Linux on a 64-bit system, so I have to specify that precise system information in order to abide by the law of referential transparency. Recall that an exact input value must be given for the result to be replicable with 100% certainty. The Nix compiler will check the grammar before it executes the build task. It will not execute illegal language statements.
 
