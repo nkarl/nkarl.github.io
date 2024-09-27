@@ -4,13 +4,13 @@ description: I documented a few things I learned about Nix and Nix flakes.
 pubDate: Sep 26 2024
 ---
 
-I recently encountered a problem while trying to build a Docker image for a project.
+I recently encountered a problem while building a Docker image.
 
 The image has a few large git dependencies which flooded the bandwidth of my home network, resulted in [an RPC error on cloning](https://stackoverflow.com/questions/38618885/error-rpc-failed-curl-transfer-closed-with-outstanding-read-data-remaining/79004075#79004075). It was a kind of hair-pulling frustration, because each time it takes so long to rebuild only for it to fail half way through. I definitely [screamed](https://youtube.com/shorts/ay_F-Y7mERk?si=B-65td2XWraizXHn) a few times.
 
-I reorganized the Dockerfile and moved the fragile dependencies toward the end. This addressed the build time problem somewhat. At this point however, I got fatigued with Docker, so I looked into other ways to manage dependencies. I revisited Nix, spending about a week time on reading and poking at it repeatedly.
+After some tinkering I reorganized the Dockerfile, which somewhat addressed the build time problem. At this point however, I got fatigued with Docker, so I looked into other ways to manage dependencies. I revisited Nix, spending about a week time on reading and poking at it repeatedly.
  
-I think Nix is a fascinating and deeply useful tool, so I want to use this article to document a few things I have learned about it.
+I think Nix is a fascinating and deeply useful tool. In this article, I document a few things I have learned about it.
 
 ### where to start
 
@@ -18,31 +18,32 @@ I think Nix is a fascinating and deeply useful tool, so I want to use this artic
 > - Nix, as a programming memory model, operates on the file system
 > - Nix, as an ecosystem, has *Flake* as the most recent major feature
 >     - similar to `package.json` or `stack.yaml` or `cabal.project`.
->     - with *flakes*, we can control system builds as programs.
+>     - more, we can control system builds as programs.
 
 In order to get the ball rolling with Nix as quickly as possible, I recommend that you 
 - ignore **NixOS** completely.
-- install **Nix** on your system; either *multi-user* or *single-user* works.
-    - I am the only user of my system so I picked single-user.
+- install **Nix** on your system; I am the only user of my system so I chose single-user.
 - start with **Nix Flake**.
 
 ### exposition on Nix
 
 As *a tool for managing and building system dependencies*, Nix offers environment isolation, caching and deterministic reproducibility.
 
-When you install Nix as recommended, you install a handler into your user space that can parse and evaluate `*.nix` files via various Nix commands. This handler can create an isolated shell with all required environment variables, and then retrieve dependencies already indexed in a remote repository.
+When you install Nix as recommended, you install a handler into your user space that can parse and evaluate `*.nix` files via various Nix commands. This handler can retrieve and build dependencies that are already indexed in a remote repository. It can also create an isolated shell with env variables for development or deployment.
 
-First, this solves the problem of dependency management. Second, the required dependencies are then built and cached on the local host, making build time much shorter in subsequent rebuilds. Third, all dependencies are indexed and stored by their cryptographic hashes. This means that the same exact build can be replicated with 100% certainty (referential transparency for the functional programmers). This is signficant.
+- First, this solves the problem of dependency management via the remote index. You just need to look at StackOverflow to see the heap of questions on missing packages.
+- Second, the dependencies are then build and cached on the local host, making subsequent build times much shorter.
+- Third, all dependencies are indexed and stored by their cryptographic hashes. This is true for both the remote and local stores. This is significant. This means we can replicate the build outputs with 100% certainty by using the same hashed packages for inputs.
 
 ### on ~~NixOS~~
 
 The reason you should ignore NixOS is an economic one.
 
-Most developers are gerrymandered into 3 territories: Windows, MacOS and an opague blob of Unix distros. This is a just a fact of life. It is then a logical next step to infer that most developers would prefer to stick with the systems they are familiar with. We all feel more comfortable with the tools that we own.
+Most developers are gerrymandered into 3 territories: Windows, MacOS and an opaque blob of Unix distros. This is a just a fact of life. It is then logical to infer that most developers would prefer to stick with the systems they are familiar with. We all feel more at home with the tools that we own.
 
-The costs of migrating to a new OS is simply too high for most people, especially without a proper plan.
+In any case, the costs of migrating to a new OS is simply too high for most people, especially without a good reason and plan.
 
-For that reason, I suggest a *project-leveled isolation* as a more sensible approach. More below.
+Therefore, I recommend an *isolation level on a per-project basis* via Nix Flake. It is a more sensible approach to Nix. More below.
 
 ### on Nix flakes
 
@@ -54,37 +55,42 @@ From a developer's standpoint, you can think of a flake as being similar to `pac
 
 ### on Nix flakes as turbo manifests
 
-The major differences of a `flake.nix` over other manifest types is actually the programming language model (Nix) that encapsulates and operates on these flakes. 
+The major difference of a `flake.nix` over other manifest types is actually from the programming language model (Nix) that encapsulates and operates on these flakes. 
 
-In many popular frameworks such as Maven and Node.js, these manifests are typically *package manifests*. They specify a set of metadata including dependencies, and at best a few scripts for building and deploying the application.
+In many popular frameworks such as Maven and Node.js, manifest files are typically *package manifests*. They specify a set of metadata that include dependencies for an application, and at best a few scripts for building and running it. They are simply a side effect of the main application.
 
 ```json
 {
-    ...
+    // ...
     "scripts": {
         "build": "spago build",
         "test": "spago test",
-        ...
+        // ...
     },
     "dependencies": {
-        ...
+        // ...
     }
 }
 ```
 
-From a host environment's standpoint, they still source from the context of the host's user space. That is, they depend on a preconfigure step that prepares a shell with all system-leveled dependencies. This is often done inside a container such as Docker through a pair of `Dockerfile` and `docker-compose.yaml` manifest files. It is a separate layer for security reasons that are beyond the scope of this article.
+From a host environment's standpoint, these package manifests are completely dependent on the host's context. In other words, they depend on a prior configure step that should prepare a shell with all required system dependencies. This step is often carried out by the developers. A Docker container is also a kind of build pre-configuration. A Docker image is often built through a pair of `Dockerfile` and `docker-compose.yaml` manifests.
 
-A Nix flake is a type of manifest designed for this step, but on steroid.
+Nix Flake is a type of manifest designed for this step. Nix as a language more generally models this pre-configure step.
 
-In a flake, you specify the sets of *inputs* and *outputs* to source and build your system dependencies. In the `inputs` attribute, you define where to source your packages. In the `outputs` attribute, you can define various actions to create an isolated environment *on top of* the list of dependency packages. Because of Nix's purely functional nature, you can look at every Nix file as a [mathematical object](https://ncatlab.org/nlab/show/object) (a high-ordered function) that accepts some arguments and produces some result that can be passed on to other mathematical objects (Nix files). The functional programmers will definitely feel at home here.
+In a flake, you specify both the *inputs* and *outputs* for sourcing and building your dependencies, like a mathematical equation.
 
-You can use a flake to set up an isolated instance from within the host's user space. This instance, instantiated from a *derivation*, has its own environment path and variables. It is hashed and stored, allowing for a set of actions that is deterministic and reproducible on other systems.
+- In the `inputs` attribute, you define where to source your packages.
+- In the `outputs` attribute, you have a few options. You can define a simple attribute set as expectation for the build output, just like `inputs`. Furthermore, you can also define various actions that ultimately creates the expected attribute set. This is possible due to Nix's design.
+
+> You can look at every Nix file as a [mathematical object](https://ncatlab.org/nlab/show/object) (a high-ordered function) that can accept some arguments and produces some result that can be passed on to other mathematical objects (Nix files).
+
+You can use a flake to set up an isolated instance from within the host environment. This instance, derived from a translation unit called *derivation*, has its own environment path and variables. The derivation is hashed and stored, allowing for 100% reproducibility.
 
 ### from zero to one Nix flake
 
-The best way to understand something is to use it. I recommend starting with a simple flake structure and use it repeatedly until you are ready to modify it. Let's try to make one ourselves.
+The best way to understand something is to use it. I recommend starting with a simple flake structure and use it repeatedly until you are ready to advance to more complex variants. Let's try to make one ourselves.
 
-Every flake is a [hash set](https://nix.dev/tutorials/nix-language.html#attrset) with two attributes `inputs` and `outputs`, each in turn is another attribute set. As a side note, this is an example of [recursive data type](https://en.wikipedia.org/wiki/Recursive_data_type). In the `inputs` attribute set you can define a pointer to a package indexer to source your project's dependencies from, most commonly `github:nixos/nixpkgs/nixos-*`. These indexers are versioned and managed by the Nix community:
+Every flake is a [hash set](https://nix.dev/tutorials/nix-language.html#attrset) with two attributes `inputs` and `outputs`, each in turn is another attribute set. As a side note, this is an example of [recursive data type](https://en.wikipedia.org/wiki/Recursive_data_type). In the `inputs` attribute set you can declare a pointer to some index to source your packages, most commonly `github:nixos/nixpkgs/nixos-*`. This index is versioned and managed by the Nix community:
 
 - `github:nixos/nixpkgs/nixos-unstable` is the latest
 - `github:nixos/nixpkgs/nixos-24.05` (same tip as `unstable` at the time of writing)
@@ -92,7 +98,7 @@ Every flake is a [hash set](https://nix.dev/tutorials/nix-language.html#attrset)
 - `github:nixos/nixpkgs/nixos-23.05`
 - ...
 
-You can browse all indexer versions [here](https://lazamar.co.uk/nix-versions/).
+You can browse all versions of the index [here](https://lazamar.co.uk/nix-versions/).
 
 Now, let's start writing a flake.
 
@@ -109,7 +115,7 @@ Now, let's start writing a flake.
 ```
 
 
-Remember that Nix is also a functional programming language (there are a lot of namespace collisions here, I know). In this paradigm, even an attribute set is a function, although a simple [kind](https://en.wikipedia.org/wiki/Kind_(type_theory)). Thus, we can do something like this to the `outputs` attribute:
+Remember that Nix is also a functional programming language (namespace collisions, I know). In this paradigm, even an attribute set is a function, although a simple [kind](https://en.wikipedia.org/wiki/Kind_(type_theory)). Thus, we can do something like this to the `outputs` attribute:
 
 ```nix
 {
@@ -119,7 +125,7 @@ Remember that Nix is also a functional programming language (there are a lot of 
         { self, nixpkgs, ... }:
         let
             name = "project-name";
-            systems = [ "x86_64-linux" "aarch64-darwin" ];
+            system = "x86_64-linux";
             pkgs = import nixpkgs { };
         in
             pkgs.mkShell {
@@ -129,17 +135,19 @@ Remember that Nix is also a functional programming language (there are a lot of 
 ```
 
 
-In this instance, `outputs` is bound to a function that takes an extensible set and produces a new set via the function `pkgs.mkShell`. It's easier to see when we map to a Haskell-like grammar:
+In this instance, we define an anonymous function that accepts a set of variadic arguments and produces a new attribute set by invoking the `pkgs.mkShell` function. It's easier to see when we map to a Haskell-like grammar:
 
 ```haskell
-inputs :: Row Type
+data Flake = Flake { inputs :: Set, outputs :: Set }
+
+inputs :: Set
 -- omitted
 
-outputs :: Row Type
+outputs :: Set
 outputs = \{ self, nixpkgs } -> do
     let
         name = "project-name"
-        systems = [ "x86_64-linux" "aarch64-darwin" ]
+        system = "x86_64-linux"
         pkgs = import' nixpkgs
     pkgs.mkShell do
         -- omitted
@@ -170,18 +178,20 @@ This is obviously not a one-to-one mapping, but you get the idea. With that in m
 }
 ```
 
-The function `mkShell` essentially produces a *derivation*. This is Nix lingo for a *build task*. Upon invoking [`nix-instantiate`](https://nix.dev/manual/nix/2.18/command-ref/nix-instantiate) this build task will be evaluated and stored in the local host's `/nix/store/`.
+The function `mkShell` produces a *derivation*. This is Nix lingo for a *build task*. Upon invoking [`nix-instantiate`](https://nix.dev/manual/nix/2.18/command-ref/nix-instantiate) this build task will be evaluated for a cryptographic hash, and stored in the local host's `/nix/store/`.
 
-This *build task* can be realized into a *build result* with commands such as `nix build` and `nix develop`. Running the latter will build everything and drop us into a Nix shell with all the packages ready for use. The path to these packages contains their individual cryptographic hashes, for example
+This build task can then be realized into a *build result* with commands such as `nix build` and `nix develop`. Running the latter will build everything and drop us into a Nix shell with all the packages ready for use. The path to these packages contains their individual cryptographic hashes, for example:
 
 ```sh
 /nix/store/xng8wvi7inzybhmaclsb6s8yhmafbq40-nix-prefetch-git 
 ```
 
+> Check out the documentation page on [experimental sub-commands here](https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix).
 
-> With the new Nix CLI v3, the hashing of path, instantiating and storing of derivation are combined with building through the commands `nix build` and `nix develop` for a better user interface. Check out the documentation page on [experimental sub-commands here](https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix).
 
-Now, if you tried building the flake, you should get an error. We should read the error message and try to understand why.
+### double check
+
+Now, if you tried building the flake, you should have got an error. Let's read the error message and try to understand why.
 
 ```sh
 $ nix develop         
@@ -196,8 +206,13 @@ error: flake 'git+file://${PATH_TO}/haskell-project' does not provide attribute 
         'packages.x86_64-linux.default' or 'defaultPackage.x86_64-linux'
 ```
 
+What happened there?
 
-The error message is informative. It says that the outputs set produced by the function `mkShell` does not contain the attribute `devShells.x86_64-linux.default`. It's a simple fix:
+The error message says that the function `mkShell` produced an output that does not contain the attribute `devShells.x86_64-linux.default`. This violated functional purity.
+
+We need to specify the system we are building on. I am using Linux on a 64-bit system, so I have to specify that precise system information in order to abide by the law of referential transparency. Recall that an exact input value must be given for the result to be replicable with 100% certainty. The Nix compiler will check the grammar before it executes the build task. It will not execute illegal language statements.
+
+It's a simple fix:
 
 ```nix
 {
@@ -206,10 +221,10 @@ The error message is informative. It says that the outputs set produced by the f
         { self, nixpkgs, ... }:                             # function input
         let
             name = "haskell-project";
-            system = "x86_64-linux";                        # specifies the system variable, must be a compile time value
-            pkgs = import nixpkgs { inherit system; };      # the package set must also contain the system attribute
+            system = "x86_64-linux";                        # specifies the value of the `system` attribute; must be a compile time value
+            pkgs = import nixpkgs { inherit system; };      # the `pkgs` set must also contain the `system` attribute
         in
-            devShells.${system}.default = pkgs.mkShell {    # function output, with the system value embedded
+            devShells.${system}.default = pkgs.mkShell {    # function output; embedded with the value of `system`
                 inherit name;
                 
                 buildInputs = [
@@ -221,18 +236,24 @@ The error message is informative. It says that the outputs set produced by the f
 }
 ```
 
-We need to specify the system we are building on. I am using Linux, so I have to specify that system information in order to abide by the law of referential transparency. The following is the list of all systems available for you to pick from
+That compiles. Now we are in a working Nix shell.
+
+Below is the list of all systems available for you to pick from. On Windows, it might be possible to install Nix into a WSL.
 
 ```nix
 systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux" ];
 ```
 
-That compiles. Now we are in a working Nix shell. Congratulations, you just created and built your first Nix flake!
+### finally
 
-I recommend testing with other variants of Nix flake. There are multiple sources you can reference from. I include a few links below. Happy hacking!
+Congratulations, you just created and built your first Nix flake!
+
+I recommend trying out a few Nix Flake variants. There are multiple sources you can reference from. I include a few links below.
+
+Happy hacking!
 
 
-### Links
+### links
 
 - For the first-principled folks, I highly recommend *The Purely Functional Software Deployment Model* thesis [from E. Dolstra](https://edolstra.github.io/pubs/phd-thesis.pdf), the author of Nix himself.
 - This [book](https://nixos-and-flakes.thiscute.world/nixos-with-flakes/introduction-to-flakes) provides an excellent historical context for the fragmented state of the Nix ecosystem. It informed my suggestion to focus on *Flake* from the beginning.
