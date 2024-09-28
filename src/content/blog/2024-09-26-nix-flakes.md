@@ -32,7 +32,7 @@ As *a tool for managing and building system dependencies*, Nix offers environmen
 When you install Nix as recommended, you install a handler into your user space that can parse and evaluate `*.nix` files via various Nix commands. This handler can retrieve and build dependencies that are already indexed in a remote repository. It can also create an isolated shell with env variables for development or deployment.
 
 - First, this solves the problem of dependency management via the remote index. You just need to look at StackOverflow to see the heap of questions on missing packages.
-- Second, the dependencies are then build and cached on the local host, making subsequent build times much shorter.
+- Second, the dependencies are then built and cached on the local host, making subsequent build times much shorter.
 - Third, all dependencies are indexed and stored by their cryptographic hashes. This is true for both the remote and local stores. This is significant. This means we can replicate the build outputs with 100% certainty by using the same hashed packages for inputs.
 
 ### on ~~NixOS~~
