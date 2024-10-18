@@ -1,0 +1,102 @@
+---
+title: Building a New Blog
+description: I document a few details on the initial setup.
+pubDate: Oct 18 2024
+---
+import Sketch from "/src/assets/2024-10-18/NewBlog-Sketch.svg"
+import ContentSlot from "/src/assets/2024-10-18/NewBlog-ContentSlot.svg"
+
+I have started the process of building my new blog in [PureScript](https://www.purescript.org/) and [Halogen](https://purescript-halogen.github.io/purescript-halogen/index.html). You can track the progress at [this repo](https://github.com/nkarl/my.newblog/).
+
+The reason it took so long to start since [conception](/blog/2024-08-15-update) is because I was blocked for about a month on the [notification pattern](https://purescript-halogen.github.io/purescript-halogen/guide/05-Parent-Child-Components.html#output-messages). It finally clicked last week and I finished reading the rest of the Halogen documentation. 
+
+In this post I document a few details about the initial setup and my plan for the project.
+
+
+### tools
+
+My development environment is centered around the terminal and NVim as my primary editor. 
+
+To facilitate this workflow, I set up a Nix flake to get the neccessary LSP support for PureScript. The flake is lifted directly from the [Real World Halogen](https://github.com/thomashoneyman/purescript-halogen-realworld) repo which I will be referencing heavily along with the Halogen documentation pages. I also created some notes while working through the examples in the Halogen documentation. I organized them in [this repo](https://github.com/nkarl/purescript-halogen-hello-world).
+
+The flake subscribes to version 24.05 of NixOS Packages. The overlay for PureScript should pull the relevant tool stack from their latest tips.
+
+Other first-class references include [Pursuit](https://pursuit.purescript.org/), [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML) and [W3Schools](https://www.w3schools.com/css/default.asp).
+
+
+### sketching the frame
+
+I started with a simple sketch of the front page.
+
+<div style="display:block;text-align:center">
+<img
+    src={Sketch.src}
+    style="width:full;height:auto;display:block;margin-left:auto;margin-right:auto" 
+    alt="computation node for the function Mul."
+/>
+</div>
+
+It's a simple blog, nothing complicated. The colors here are for illustrating purpose. I personally want to keep the colorscheme minimalistic.
+
+
+### defining some data and actions
+
+#### routing
+
+The Header will contain just 3 buttons divided into two `div` groups: the *Home button* that routes in-place, and two other buttons that routes to my resume and contact info, respectively. The *Home* group is left-justified. The other button group is right-justified. 
+
+For routing purpose, I will need to define a routing codec and route actions.
+
+```haskell
+data Route
+	= Home
+	| Resume
+	| Contact
+
+routeCodec :: RouteDuplex' Route
+routeCodec = root $ sum
+	{ "Home": noArgs
+	, "Resume": "resume"
+	, "Contact": "contact"
+	}
+
+-- routing actions to be defined.
+```
+
+
+#### the content slot 
+
+Moving on to the content block, slotted between the Header and Footer.
+
+On the landing page, I want the content slot to display a list of links, each upon click will render the actual post.
+
+<div style="display:block;text-align:center">
+<img
+    src={ContentSlot.src}
+    style="width:full;height:auto;display:block;margin-left:auto;margin-right:auto" 
+    alt="computation node for the function Mul."
+/>
+</div>
+
+Formally, this will be a monoid where the elements are unique blog posts, each hashed by its title and published date. The identity element is *no post*. The binary operation on the instances of this monoid is concatenation.
+
+Thus the monoid is defined as a 3-tuple:
+$$
+\begin{align*}
+(P, concat, \mathbf{e})\quad\text{ where,}\quad\quad
+P&: \text{the set of blog posts}\cr
+concat&: \text{monoid concatenation}\cr
+\mathbf{e}&: \text{the identity element } \mathbf{mempty}
+\end{align*}
+$$
+
+
+### finally
+
+My primary focus and goal for this project is getting more practice on defining data types and actions, particularly the actions of interacting with and navigating to various parts and pages of the website.
+
+This will be a good practice and reference for future projects where I want to incorporate authentication and other complex actions.
+
+It is a good place to start.
+
+That's all I have for now. Thanks for reading and take care.
